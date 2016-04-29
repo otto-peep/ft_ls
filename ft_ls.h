@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/04/26 15:18:29 by pconin           ###   ########.fr       */
+/*   Updated: 2016/04/29 15:13:11 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,26 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-typedef struct s_mem
+typedef struct		s_mem
 {
-	char		*arg;
-	int			l;
-	int			R;
-	int			a;
-	int			r;
-	int			t;
-}				t_mem;
+	char			*arg;
+	int				l;
+	int				R;
+	int				a;
+	int				r;
+	int				t;
+	struct s_fil	*dat;
+}					t_mem;
+
+typedef struct		s_fil
+{
+	char			rgh[10];
+	char			*name;
+	char			*date_m;
+	long long		size;
+	struct s_fil	*next;
+}					t_fil;
 
 #endif
