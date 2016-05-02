@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/04/29 15:13:09 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:40:03 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,18 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier)
 	t_fil		*file;
 	struct stat	*buf;
 	time_t t;
+	
 	buf = malloc(sizeof(struct stat));
 	lstat(fichier->d_name, buf);
 	file = (t_fil *)malloc(sizeof(t_fil));
 	file->size = buf->st_size;
 	file->name = fichier->d_name;
-	t = time(&buf->st_mtimespec.tv_sec);
+	t = time(&buf->st_atimespec.tv_sec);
 	file->date_m = ft_strdup(ctime(&t));
+	file->us_name = (getpwuid(buf->st_uid))->pw_name;
+	file->gr_name = (getgrgid(buf->st_gid))->gr_name;
 	file->next = NULL;
+	printf("%s\n", file->gr_name);
 	return (file);
 }
 

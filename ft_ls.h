@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/04/29 15:13:11 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:27:42 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <pwd.h>
+#include <uuid/uuid.h>
+#include <grp.h>
 
 typedef struct		s_mem
 {
@@ -41,6 +44,8 @@ typedef struct		s_fil
 	char			*date_m;
 	long long		size;
 	struct s_fil	*next;
+	char			*us_name;
+	char			*gr_name;
 }					t_fil;
 
 #endif
