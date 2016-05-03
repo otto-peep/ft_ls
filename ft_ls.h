@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/02 18:27:42 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/03 12:18:59 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct		s_mem
 
 typedef struct		s_fil
 {
+	long long		time_s;
+	int				hide;
 	char			rgh[10];
 	char			*name;
 	char			*date_m;
@@ -46,6 +48,11 @@ typedef struct		s_fil
 	struct s_fil	*next;
 	char			*us_name;
 	char			*gr_name;
+	int				links;
 }					t_fil;
 
+void	get_date(t_fil *file, long filetime);
+void	print_dir(t_fil *file, t_mem *s);
+void	parse_arg(char **argv, t_mem *s);
+void	ft_flags(t_fil **begin_list, t_mem *s);
 #endif

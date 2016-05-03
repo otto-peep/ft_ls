@@ -4,7 +4,11 @@ HEAD = ft_ls.h
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c
+SRC = main.c	\
+	  date.c	\
+	  flags.c	\
+	  init.c	\
+	  print.c
 
 LIBPATH = -lm -L libft/ -lft
 
