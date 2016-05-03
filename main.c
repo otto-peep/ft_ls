@@ -42,34 +42,38 @@ void			print_dir(t_fil *file, t_mem *s)
 
 	while (file)
 	{
-		i = 0;
-		while (i++ != 5 && file)
+		if (s->l == 1)
 		{
-			ft_putstr(file->name);
+			ft_putstr(file->us_name);
 			ft_putstr("\t");
-			file = file->next;
+			ft_putstr(file->gr_name);
+			ft_putstr("\t");
+			ft_putnbr(file->size);
+			ft_putstr("\t");
+			ft_putstr(file->date_m);
+			ft_putstr("\t");
+			ft_putstr(file->name);
+			ft_putstr("\n");
 		}
-		ft_putstr("\n");
+		file = file->next;
 	}
 }
+
 
 struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier)
 {
 	t_fil		*file;
 	struct stat	*buf;
-	time_t t;
 	
 	buf = malloc(sizeof(struct stat));
 	lstat(fichier->d_name, buf);
 	file = (t_fil *)malloc(sizeof(t_fil));
 	file->size = buf->st_size;
 	file->name = fichier->d_name;
-	t = time(&buf->st_atimespec.tv_sec);
-	file->date_m = ft_strdup(ctime(&t));
+	file->date_m = ft_strdup(ctime(&buf->st_mtime));
 	file->us_name = (getpwuid(buf->st_uid))->pw_name;
 	file->gr_name = (getgrgid(buf->st_gid))->gr_name;
 	file->next = NULL;
-	printf("%s\n", file->gr_name);
 	return (file);
 }
 
