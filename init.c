@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/03 12:18:42 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/03 15:05:52 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	parse_arg(char **argv, t_mem *s)
 	int a;
 
 	s->arg = NULL;
-	i = 0;
+	i = 1;
 	init_arg(s);
 	while (argv[i])
 	{
@@ -68,5 +68,7 @@ void	parse_arg(char **argv, t_mem *s)
 		else
 			s->arg = ft_strdup(argv[i]);
 		i++;
-    }
+	}
+	if (s->arg == NULL)
+		s->arg = ft_strdup("./");
 }

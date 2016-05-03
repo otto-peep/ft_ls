@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/03 12:18:59 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/03 14:11:12 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_fil
 	int				links;
 }					t_fil;
 
+void	ft_error(char *str);
 void	get_date(t_fil *file, long filetime);
 void	print_dir(t_fil *file, t_mem *s);
 void	parse_arg(char **argv, t_mem *s);
