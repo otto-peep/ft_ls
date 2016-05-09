@@ -39,6 +39,7 @@ typedef struct		s_mem
 
 typedef struct		s_fil
 {
+	char			typ;
 	long long		time_s;
 	int				hide;
 	char			rgh[10];
@@ -49,10 +50,13 @@ typedef struct		s_fil
 	char			*us_name;
 	char			*gr_name;
 	int				links;
+	int				bloc;
 }					t_fil;
 
 void	ft_error(char *str);
 void	get_date(t_fil *file, long filetime);
+void	get_rights(t_fil *f, struct stat buf);
+void	get_type(t_fil *f, struct stat buf);
 void	print_dir(t_fil *file, t_mem *s);
 void	parse_arg(char **argv, t_mem *s);
 void	ft_flags(t_fil **begin_list, t_mem *s);
