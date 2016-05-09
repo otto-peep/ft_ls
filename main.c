@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/03 16:18:32 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/09 17:00:19 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int		main(int argc, char **argv)
 	if (closedir(rep) == -1)
 		perror("error");
 	ft_flags(&s->dat, s);
-	print_dir(s->dat, s);
+	//print_dir(s->dat, s);
 	return (0);
 }
