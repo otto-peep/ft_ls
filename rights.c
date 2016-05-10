@@ -22,6 +22,7 @@ void	get_type(t_fil *f, struct stat buf)
 
 		void	get_rights(t_fil *f, struct stat buf)
 {
+	f->rgh = malloc(sizeof(char) * 10);
 	f->rgh[0] = (buf.st_mode & S_IRUSR) ? 'r' : '-';
 	f->rgh[1] = (buf.st_mode & S_IWUSR) ? 'w' : '-';
 	f->rgh[2] = (buf.st_mode & S_IXUSR) ? 'x' : '-';

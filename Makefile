@@ -9,7 +9,8 @@ SRC = main.c	\
 	  flags.c	\
 	  init.c	\
 	  print.c	\
-	  rights.c
+	  rights.c	\
+	  tools.c
 
 LIBPATH = -lm -L libft/ -lft
 
