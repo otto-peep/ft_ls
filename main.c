@@ -55,7 +55,6 @@ void	ls_rec(t_mem *s, char *path)
 	t_fil *file;
 
 	file = NULL;
-	sleep(1);
 	fichier = malloc(sizeof(struct dirent));
 	rep = malloc (sizeof(DIR));
 	if ((rep = opendir(path)) == NULL)
@@ -76,7 +75,7 @@ void	ls_rec(t_mem *s, char *path)
 			if (s->r == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
 			{
 				ft_putendl(tail->next->path);
-			//	ls_rec(s, tail->next->path);
+				ls_rec(s, tail->next->path);
 			}
 		}
 	}

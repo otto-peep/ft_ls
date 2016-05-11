@@ -70,5 +70,5 @@ void	parse_arg(char **argv, t_mem *s)
 		i++;
 	}
 	if (s->arg == NULL)
-		s->arg = ft_strdup("./");
+		s->arg = ft_strdup(".");
 }

@@ -31,7 +31,7 @@ void	total_blocks(t_fil *file)
 {
 	int total;
 
-total = 0;
+	total = 0;
 	while (file)
 	{
 		total = total + file->bloc;
