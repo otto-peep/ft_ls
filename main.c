@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/10 15:11:21 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/11 16:52:37 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 	t_fil		*file;
 	struct stat	 buf;
 	char *path;
+
 	file = (t_fil *)malloc(sizeof(t_fil));
 	path = ft_strjoin(name, "/");
 	path = ft_strjoin(path, fichier->d_name);
@@ -72,7 +73,7 @@ void	ls_rec(t_mem *s, char *path)
 			while (tail->next)
 				tail = tail->next;
 			tail->next = ft_add_file(rep, fichier, s, path);
-			if (s->r == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
+			if (s->R == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
 			{
 				ft_putendl(tail->next->path);
 				ls_rec(s, tail->next->path);
@@ -81,7 +82,7 @@ void	ls_rec(t_mem *s, char *path)
 	}
 	if (closedir(rep) == -1)
 		perror("error");
-	print_dir(file, s);
+	print_dir(file, s, path);
 }
 
 int		main(int argc, char **argv)
@@ -89,14 +90,21 @@ int		main(int argc, char **argv)
 	t_mem *s;
 	t_fil	*file;
 	s = (t_mem *)malloc(sizeof(t_mem));
-	parse_arg(argv, s);
+	parse_arg(argv, s, argc);
 	t_fil *tail;
+	int i;
 
+	i = 0;
 	DIR* rep = NULL;
 	struct dirent	*fichier = NULL;
 	fichier = malloc(sizeof(struct dirent));
 	rep = malloc(sizeof(DIR));
-	s->dat = NULL;
+	while (s->files[i] != NULL)
+	{
+		ls_rec(s, s->files[i]);
+		i++;
+	}
+	/*/
 	if ((rep = opendir(s->arg)) == NULL)
 	{
 		perror("error");
@@ -123,5 +131,6 @@ int		main(int argc, char **argv)
 		perror("error");
 	ft_flags(&s->dat, s);
 	print_dir(s->dat, s);
+	/*/
 	return (0);
 }

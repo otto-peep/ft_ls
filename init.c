@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/10 11:46:28 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/11 16:48:49 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_arg(t_mem *s)
   s->a = 0;
   s->r = 0;
   s->t = 0;
+  s->files = NULL;
+  s->nb_file = 1;
 }
 
 void	check_flag(t_mem *s, char c)
@@ -46,12 +48,40 @@ void	check_flag(t_mem *s, char c)
 	}
 }
 
-void	parse_arg(char **argv, t_mem *s)
+void	ft_add_arg(t_mem *s, char **argv, int i, int bool)
+{
+	int size;
+
+	size = i;
+	if (bool == 1)
+	{
+		s->files = (char **)malloc(sizeof(char *) * (2));
+		s->files[0] = ft_strdup(".");
+		s->files[1] = NULL;
+	}
+	else
+	{
+		while (argv[size])
+			size++;
+		size = size - i;
+		s->nb_file = size;
+		s->files = (char **)malloc(sizeof(char *) * (size + 1));
+		s->files[size] = NULL;
+		size = 0;
+		while (argv[i])
+		{
+			s->files[size] = ft_strdup(argv[i]);
+			size++;
+			i++;
+		}
+	}
+}
+
+void	parse_arg(char **argv, t_mem *s, int argc)
 {
 	int i;
 	int a;
 
-	s->arg = NULL;
 	i = 1;
 	init_arg(s);
 	while (argv[i])
@@ -66,9 +96,12 @@ void	parse_arg(char **argv, t_mem *s)
 			}
 		}
 		else
-			s->arg = ft_strdup(argv[i]);
+		{
+			ft_add_arg(s, argv, i, 0);
+			break;
+		}
 		i++;
 	}
-	if (s->arg == NULL)
-		s->arg = ft_strdup(".");
+	if (s->files == NULL)
+		ft_add_arg(s, argv, i, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/10 11:39:05 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/11 16:41:56 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,23 @@ void	total_blocks(t_fil *file)
 	ft_putnbr(total);
 	ft_putstr("\n");
 }
-void	print_dir(t_fil *file, t_mem *s)
+
+void	ft_print_path(char *path)
+{
+	ft_putstr("\n");
+	if (path[0] != '.')
+	{
+		ft_putstr(path);
+		ft_putstr(":\n");
+	}
+}
+
+void	print_dir(t_fil *file, t_mem *s, char *path)
 {
 	int		i;
 
+	if (s->nb_file > 1 || s->R == 1)
+		ft_print_path(path);
 	if (s->l == 1)
 		total_blocks(file);
 	while (file)
