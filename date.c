@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:22:37 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/03 16:18:34 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/12 12:00:07 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	get_date(t_fil *file, long filetime)
 
 	file->time_s = filetime;
 	tab = ft_strsplit(ctime(&filetime), ' ');
-	//if (tab == NULL)
-	//		ft_error("malloc error");;
 	date = time(&date) - filetime;
 	if ((date > 15778800) || (date < -15778800))
 	{

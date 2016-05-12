@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/11 16:52:37 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/12 13:58:43 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 	return (file);
 }
 
+void	parse_for_rec(t_mem *s, t_fil *file)
+{
+	while (file->next)
+	{
+		if (file->typ == 'd' && ((file->hide == 0)/* || (file->hide == 1 &&
+						s->a == 1)*/))
+		{
+			ls_rec(s, file->path);
+		}
+		file = file->next;
+	}
+}
+
 void	ls_rec(t_mem *s, char *path)
 {
 	DIR *rep = NULL;
@@ -73,16 +86,18 @@ void	ls_rec(t_mem *s, char *path)
 			while (tail->next)
 				tail = tail->next;
 			tail->next = ft_add_file(rep, fichier, s, path);
-			if (s->R == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
+/*/			if (s->R == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
 			{
 				ft_putendl(tail->next->path);
 				ls_rec(s, tail->next->path);
 			}
-		}
+	/*/	}
 	}
 	if (closedir(rep) == -1)
 		perror("error");
 	print_dir(file, s, path);
+	if (s->R == 1)
+		parse_for_rec(s, file);
 }
 
 int		main(int argc, char **argv)

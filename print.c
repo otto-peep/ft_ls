@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/11 16:41:56 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/12 12:32:31 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ void	print_l(t_fil *file)
 	ft_putstr(file->date_m);
 	ft_putstr("\t");
 }
-void	total_blocks(t_fil *file)
+void	total_blocks(t_fil *file, t_mem *s)
 {
 	int total;
 
 	total = 0;
 	while (file)
 	{
-		total = total + file->bloc;
+		if (file->hide == 1 && s->a == 0)
+			;
+		else
+			total = total + file->bloc;
 		file = file->next;
 	}
 	ft_putstr("total ");
@@ -45,7 +48,7 @@ void	total_blocks(t_fil *file)
 void	ft_print_path(char *path)
 {
 	ft_putstr("\n");
-	if (path[0] != '.')
+	if (ft_strcmp(path, ".") != 0)
 	{
 		ft_putstr(path);
 		ft_putstr(":\n");
@@ -59,7 +62,7 @@ void	print_dir(t_fil *file, t_mem *s, char *path)
 	if (s->nb_file > 1 || s->R == 1)
 		ft_print_path(path);
 	if (s->l == 1)
-		total_blocks(file);
+		total_blocks(file, s);
 	while (file)
 	{
 		if (s->a == 1 || file->hide == 0)

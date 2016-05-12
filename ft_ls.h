@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/11 16:40:47 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/12 11:55:49 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	print_dir(t_fil *file, t_mem *s, char *path);
 void	parse_arg(char **argv, t_mem *s, int argc);
 void	ft_flags(t_fil **begin_list, t_mem *s);
 t_fil	*ft_fildup(t_fil *old);
+void	ls_rec(t_mem *s, char *path);
 #endif
