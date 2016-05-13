@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/12 13:58:43 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/13 18:51:00 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ls_rec(t_mem *s, char *path)
 	}
 	if (closedir(rep) == -1)
 		perror("error");
+	ft_flags(&file, s);
 	print_dir(file, s, path);
 	if (s->R == 1)
 		parse_for_rec(s, file);

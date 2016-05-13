@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/12 12:35:55 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/13 19:11:38 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,86 @@ void	flag_r(t_fil **begin_list)
 	*begin_list = prev;
 }
 
+int		size_list(t_fil *begin_list)
+{
+	int count;
+
+	count = 0;
+	while (begin_list->next)
+	{
+		count++;
+		begin_list = begin_list->next;
+	}
+	return (count);
+}
+
+void	init_tri(t_fil **newlist, t_fil **oldlist)
+{
+	t_fil *tmp;
+
+	tmp = *oldlist;
+	*oldlist = (*oldlist)->next;
+	tmp->next = NULL;
+	*newlist = tmp;
+}
+
+void	push_front(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+{
+	*tmp = **begin_list;
+	**begin_list = (**begin_list)->next;
+	(*tmp)->next = *maillon;
+	**newlist = *tmp;
+}
+
+void	push_back(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+{
+	*tmp = **begin_list;
+	**begin_list = (**begin_list)->next;
+	(*tmp)->next = NULL;
+	(*maillon)->next = *tmp;
+}
+
+void	insert_list(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+{
+	*tmp = **newlist;
+	while ((*tmp)->next != *maillon && (*tmp)->next)
+		*tmp = (*tmp)->next;
+	(*tmp)->next = **begin_list;
+	*tmp = (*tmp)->next;
+	**begin_list = (**begin_list)->next;
+	(*tmp)->next = *maillon;
+}
+
+t_fil	*tri_ascii(t_fil **begin_list)
+{
+	t_fil	**newlist;
+	t_fil	*maillon;
+	t_fil	*tmp;
+
+	newlist = malloc(sizeof(t_fil *) * size_list(*begin_list));
+	init_tri(newlist, begin_list);
+	while (*begin_list)
+	{
+		maillon = *newlist;
+		if (ft_strcmp((*begin_list)->name, maillon->name) > 0)
+			push_front(&tmp, &begin_list, &maillon, &newlist);
+		else
+		{
+			while (ft_strcmp((*begin_list)->name, maillon->name) <= 0 && maillon->next)
+				maillon = maillon->next;
+			if (maillon->next == NULL)
+				push_back(&tmp, &begin_list, &maillon, &newlist);
+			else
+				insert_list(&tmp, &begin_list, &maillon, &newlist);
+		}
+	}
+	return (*newlist);
+}
 
 void	ft_flags(t_fil **begin_list, t_mem *s)
 {
-//	begin_list = tri_ascii(begin_list);
-	if (s->r == 1)
+	*begin_list = tri_ascii(begin_list);
+	if (s->t == 1)
+	if (s->r == 0)
 		flag_r(begin_list);
 }
