@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/13 19:20:20 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 14:19:29 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 	get_date(file, buf.st_ctime);
 	get_rights(file, buf);
 	get_type(file, buf);
+//	if (file->typ == 'l')
+//	{
+//		if (get_link(file, path) == 0)
+//			return (NULL);
+//	}
 	file->bloc = buf.st_blocks;
 	file->us_name = (getpwuid(buf.st_uid))->pw_name;
 	if (getgrgid(buf.st_gid) == NULL)
@@ -41,8 +46,6 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 	if (file->name[0] == '.')
 		file->hide = 1;
 	file->links = buf.st_nlink;
-	if (file->typ == 'r')
-		printf("%s\n", file->path);
 	file->next = NULL;
 
 	return (file);

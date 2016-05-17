@@ -6,13 +6,15 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/13 19:27:15 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 13:57:59 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 
 # define FT_LS_H
+
+# define BUFSIZE_LINK 24
 
 #include <dirent.h>
 #include <unistd.h>
@@ -52,6 +54,9 @@ typedef struct		s_fil
 	char			*gr_name;
 	int				links;
 	int				bloc;
+	char			*link;
+	float				maj;
+	float			min;
 }					t_fil;
 
 void	ft_error(char *str);
@@ -63,4 +68,7 @@ void	parse_arg(char **argv, t_mem *s, int argc);
 void	ft_flags(t_fil **begin_list, t_mem *s);
 t_fil	*ft_fildup(t_fil *old);
 void	ls_rec(t_mem *s, char *path);
+int		get_link(t_fil *f, char *path);
+
 #endif
+

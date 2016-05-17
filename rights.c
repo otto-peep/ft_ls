@@ -1,5 +1,23 @@
 #include "ft_ls.h"
 
+int	get_link(t_fil *f, char *path)
+{
+	int len;
+	char buf[BUFSIZE_LINK];
+
+	if ((len = (readlink(path, buf, BUFSIZE_LINK))) < 0)
+	{
+		perror("error");
+		return (0);
+	}
+	else
+	{
+		buf[len] = '\0';
+		f->link = ft_strdup(buf);
+		return (1);
+	}
+}
+
 void	get_type(t_fil *f, struct stat buf)
 {
 	if (S_ISFIFO(buf.st_mode))
@@ -18,6 +36,17 @@ void	get_type(t_fil *f, struct stat buf)
 		f->typ = 's';
 	else
 		f->typ = '-';
+	if (f->typ == 'c' || f->typ == 'b')
+	{
+		printf("\n%i\n%i\n", major(buf.st_mode), minor(buf.st_mode));
+		f->maj = major(buf.st_mode);
+		f->min = minor(buf.st_mode);
+	}
+	else
+	{
+		f->maj = 0;
+		f->min = 0;
+	}
 }
 
 		void	get_rights(t_fil *f, struct stat buf)
