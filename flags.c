@@ -93,13 +93,10 @@ t_fil	*tri_ascii(t_fil **begin_list)
 		maillon = *newlist;
 		if (ft_strcmp((*begin_list)->name, maillon->name) >= 0)
 		{
-			printf("%s %s \n", (*begin_list)->name, maillon->name);
-			ft_putendl("pushfront");
 			push_front(&tmp, &begin_list, &maillon, &newlist);
 		}
 		else
 		{
-			printf("%s %s \n", (*begin_list)->name, maillon->name);
 			while (ft_strcmp((*begin_list)->name, maillon->name) < 0 && maillon->next)
 				maillon = maillon->next;
 			if (maillon->next == NULL)
