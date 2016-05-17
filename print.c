@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 13:56:10 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 18:29:46 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	print_dir(t_fil *file, t_mem *s, char *path)
 			if (s->l == 1)
 				print_l(file);
 			ft_putstr(file->name);
-//			if (file->typ == 'l' && s->l == 1)
-//				ft_print_link(file);
+			if (file->typ == 'l' && s->l == 1)
+				ft_print_link(file);
 			ft_putstr("\n");
 		}
 		file = file->next;

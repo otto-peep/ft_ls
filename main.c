@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 14:19:29 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 18:31:14 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,26 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 	if ((lstat(file->path, &buf)) == -1)
 		lstat(name, &buf);
 	file->size = buf.st_size;
-	file->name = fichier->d_name;
+	file->name = ft_strdup(fichier->d_name);
 	get_date(file, buf.st_ctime);
 	get_rights(file, buf);
 	get_type(file, buf);
-//	if (file->typ == 'l')
-//	{
-//		if (get_link(file, path) == 0)
-//			return (NULL);
-//	}
+	if (file->typ == 'l')
+	{
+		if (get_link(file, path) == 0)
+			return (NULL);
+	}
 	file->bloc = buf.st_blocks;
-	file->us_name = (getpwuid(buf.st_uid))->pw_name;
+	file->us_name = ft_strdup((getpwuid(buf.st_uid))->pw_name);
 	if (getgrgid(buf.st_gid) == NULL)
 		file->gr_name = ft_itoa(buf.st_gid);
 	else
-		file->gr_name = (getgrgid(buf.st_gid)->gr_name);
+		file->gr_name = ft_strdup((getgrgid(buf.st_gid)->gr_name));
 	file->hide = 0;
-	if (file->name[0] == '.')
+	if (file->name[0] == '.' )
 		file->hide = 1;
 	file->links = buf.st_nlink;
 	file->next = NULL;
-
 	return (file);
 }
 
@@ -55,11 +54,11 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 {
 	while (file)
 	{
-		if (file->typ == 'd' && ((file->hide == 0)/* || (file->hide == 1 &&
-						s->a == 1)*/))
-		{
+		if (file->typ == 'd' && ((file->hide == 0)))
 			ls_rec(s, file->path);
-		}
+		else if (file->typ == 'd' && file->hide == 1 &&
+				file->name[1] != '\0' && file->name[1] != '.')
+			ls_rec(s, file->path);
 		file = file->next;
 	}
 }
@@ -76,7 +75,8 @@ void	ls_rec(t_mem *s, char *path)
 	rep = malloc (sizeof(DIR));
 	if ((rep = opendir(path)) == NULL)
 	{
-		perror("error");
+		ft_putstr("ls: ");
+		perror(path);
 		return ;
 	}
 	while ((fichier = readdir(rep)) != NULL)
@@ -89,12 +89,7 @@ void	ls_rec(t_mem *s, char *path)
 			while (tail->next)
 				tail = tail->next;
 			tail->next = ft_add_file(rep, fichier, s, path);
-/*/			if (s->R == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
-			{
-				ft_putendl(tail->next->path);
-				ls_rec(s, tail->next->path);
-			}
-	/*/	}
+		}
 	}
 	if (closedir(rep) == -1)
 		perror("error");

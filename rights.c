@@ -38,7 +38,6 @@ void	get_type(t_fil *f, struct stat buf)
 		f->typ = '-';
 	if (f->typ == 'c' || f->typ == 'b')
 	{
-		printf("\n%i\n%i\n", major(buf.st_mode), minor(buf.st_mode));
 		f->maj = major(buf.st_mode);
 		f->min = minor(buf.st_mode);
 	}

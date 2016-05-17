@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 10:32:18 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 18:58:58 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,16 @@ t_fil	*tri_ascii(t_fil **begin_list)
 	while (*begin_list)
 	{
 		maillon = *newlist;
-		if (ft_strcmp((*begin_list)->name, maillon->name) > 0)
+		if (ft_strcmp((*begin_list)->name, maillon->name) >= 0)
+		{
+			printf("%s %s \n", (*begin_list)->name, maillon->name);
+			ft_putendl("pushfront");
 			push_front(&tmp, &begin_list, &maillon, &newlist);
+		}
 		else
 		{
-			while (ft_strcmp((*begin_list)->name, maillon->name) <= 0 && maillon->next)
+			printf("%s %s \n", (*begin_list)->name, maillon->name);
+			while (ft_strcmp((*begin_list)->name, maillon->name) < 0 && maillon->next)
 				maillon = maillon->next;
 			if (maillon->next == NULL)
 				push_back(&tmp, &begin_list, &maillon, &newlist);

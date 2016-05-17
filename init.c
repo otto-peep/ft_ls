@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 10:48:10 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 18:42:24 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	check_flag(t_mem *s, char c)
 		s->t = 1;
 	else
 	{
-		ft_putstr("ls: illegal option -- Z\n");
-		ft_error("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]");
+		ft_putstr("ls: illegal option -- ");
+		ft_putchar(c);
+		ft_error("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 	}
 }
 

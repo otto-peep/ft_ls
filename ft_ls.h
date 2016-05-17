@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 13:57:59 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/17 17:10:51 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define FT_LS_H
 
-# define BUFSIZE_LINK 24
+# define BUFSIZE_LINK 1024
 
 #include <dirent.h>
 #include <unistd.h>
