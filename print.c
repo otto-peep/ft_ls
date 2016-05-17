@@ -74,4 +74,5 @@ void	print_dir(t_fil *file, t_mem *s, char *path)
 		}
 		file = file->next;
 	}
+	free(file);
 }

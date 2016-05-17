@@ -86,7 +86,7 @@ void	parse_arg(char **argv, t_mem *s, int argc)
 	init_arg(s);
 	while (argv[i])
 	{
-		if (argv[i][0] == '-')
+		if (argv[i][0] == '-' && argv[i][1] != '\0')
 		{
 			a = 1;
 			while (argv[i][a])

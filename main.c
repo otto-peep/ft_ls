@@ -50,7 +50,7 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 
 void	parse_for_rec(t_mem *s, t_fil *file)
 {
-	while (file->next)
+	while (file)
 	{
 		if (file->typ == 'd' && ((file->hide == 0)/* || (file->hide == 1 &&
 						s->a == 1)*/))
