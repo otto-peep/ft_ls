@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 18:31:14 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/19 18:51:08 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,37 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 	}
 }
 
+int		ft_only_one(t_mem *s, t_fil *file, char *fname)
+{
+	while (file)
+	{
+		if (ft_strcmp(file->name, fname) == 0)
+		{
+			print_dir(file, s, ".", 1);
+			return (1);
+		}
+		file = file->next;
+	}
+	return (0);
+}
+
+
 void	ls_rec(t_mem *s, char *path)
 {
 	DIR *rep = NULL;
 	struct dirent *fichier = NULL;
 	t_fil *tail;
 	t_fil *file;
+	int		bool;
 
+	bool = 0;
 	file = NULL;
 	fichier = malloc(sizeof(struct dirent));
 	rep = malloc (sizeof(DIR));
 	if ((rep = opendir(path)) == NULL)
 	{
-		ft_putstr("ls: ");
-		perror(path);
-		return ;
+		rep = opendir(".");
+		bool = 1;
 	}
 	while ((fichier = readdir(rep)) != NULL)
 	{
@@ -91,12 +107,24 @@ void	ls_rec(t_mem *s, char *path)
 			tail->next = ft_add_file(rep, fichier, s, path);
 		}
 	}
+	if (bool == 1)
+	{
+		if (ft_only_one(s, file, path) == 0)
+		{
+			ft_putstr("ls :");
+			perror(path);
+			return ;
+		}
+	}
 	if (closedir(rep) == -1)
 		perror("error");
-	ft_flags(&file, s);
-	print_dir(file, s, path);
-	if (s->R == 1)
-		parse_for_rec(s, file);
+	if (bool == 0)
+	{
+		ft_flags(&file, s);
+		print_dir(file, s, path, 0);
+		if (s->R == 1)
+			parse_for_rec(s, file);
+	}
 }
 
 int		main(int argc, char **argv)
@@ -118,33 +146,5 @@ int		main(int argc, char **argv)
 		ls_rec(s, s->files[i]);
 		i++;
 	}
-	/*/
-	if ((rep = opendir(s->arg)) == NULL)
-	{
-		perror("error");
-		exit(0);
-	}
-	while ((fichier = readdir(rep)) != NULL)
-	{
-		if (s->dat == NULL)
-			s->dat = ft_add_file(rep, fichier, s, s->arg);
-		else
-		{
-			tail = s->dat;
-			while (tail->next)
-				tail = tail->next;
-			tail->next = ft_add_file(rep, fichier, s, s->arg);
-			if (s->r == 1 && tail->next->typ == 'd' && tail->next->hide == 0)
-			{
-				printf("%s", tail->next->path);
-				ls_rec(s, tail->next->path);
-			}
-		}
-	}
-	if (closedir(rep) == -1)
-		perror("error");
-	ft_flags(&s->dat, s);
-	print_dir(s->dat, s);
-	/*/
 	return (0);
 }

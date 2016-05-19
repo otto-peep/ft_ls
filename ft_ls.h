@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 17:10:51 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/19 18:37:16 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_error(char *str);
 void	get_date(t_fil *file, long filetime);
 void	get_rights(t_fil *f, struct stat buf);
 void	get_type(t_fil *f, struct stat buf);
-void	print_dir(t_fil *file, t_mem *s, char *path);
+void	print_dir(t_fil *file, t_mem *s, char *path, int bool);
 void	parse_arg(char **argv, t_mem *s, int argc);
 void	ft_flags(t_fil **begin_list, t_mem *s);
 t_fil	*ft_fildup(t_fil *old);

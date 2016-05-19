@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 18:29:46 by pconin           ###   ########.fr       */
+/*   Updated: 2016/05/19 18:51:06 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ void	ft_print_link(t_fil *file)
 	ft_putstr(file->link);
 }
 
-void	print_dir(t_fil *file, t_mem *s, char *path)
+void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 {
 	int		i;
 
-	if (s->nb_file > 1 || s->R == 1)
+	if ((s->nb_file > 1 || s->R == 1) && bool == 0)
 		ft_print_path(path);
-	if (s->l == 1)
+	if (s->l == 1 && bool == 0)
 		total_blocks(file, s);
 	while (file)
 	{
@@ -90,6 +90,8 @@ void	print_dir(t_fil *file, t_mem *s, char *path)
 				ft_print_link(file);
 			ft_putstr("\n");
 		}
+		if (bool == 1)
+			break;
 		file = file->next;
 	}
 	free(file);
