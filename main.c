@@ -54,10 +54,10 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 {
 	while (file)
 	{
-		if (file->typ == 'd' && ((file->hide == 0)))
+		if (file->typ == 'd' && file->hide == 0)
 			ls_rec(s, file->path);
 		else if (file->typ == 'd' && file->hide == 1 &&
-				file->name[1] != '\0' && file->name[1] != '.')
+				file->name[1] != '\0' && file->name[0] != '.')
 			ls_rec(s, file->path);
 		file = file->next;
 	}
