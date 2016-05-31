@@ -18,7 +18,7 @@
 
 #include <dirent.h>
 #include <unistd.h>
-#include "./libft/libft.h"
+#include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -64,9 +64,9 @@ void	get_date(t_fil *file, long filetime);
 void	get_rights(t_fil *f, struct stat buf);
 void	get_type(t_fil *f, struct stat buf);
 void	print_dir(t_fil *file, t_mem *s, char *path, int bool);
-void	parse_arg(char **argv, t_mem *s, int argc);
+void	parse_arg(char **argv, t_mem *s);
 void	ft_flags(t_fil **begin_list, t_mem *s);
-t_fil	*ft_fildup(t_fil *old);
+//t_fil	*ft_fildup(t_fil *old);
 void	ls_rec(t_mem *s, char *path);
 int		get_link(t_fil *f, char *path);
 

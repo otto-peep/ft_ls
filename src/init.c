@@ -78,7 +78,7 @@ void	ft_add_arg(t_mem *s, char **argv, int i, int bool)
 	}
 }
 
-void	parse_arg(char **argv, t_mem *s, int argc)
+void	parse_arg(char **argv, t_mem *s)
 {
 	int i;
 	int a;

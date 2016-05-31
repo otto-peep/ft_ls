@@ -13,15 +13,12 @@
 #include "ft_ls.h"
 
 
-struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name)
+struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
 {
 	t_fil		*file;
 	struct stat	 buf;
-	char *path;
 
 	file = (t_fil *)malloc(sizeof(t_fil));
-	path = ft_strjoin(name, "/");
-	path = ft_strjoin(path, fichier->d_name);
 	file->path = ft_strjoin(name, "/");
 	file->path = ft_strjoin(file->path, fichier->d_name);
 	if ((lstat(file->path, &buf)) == -1)
@@ -33,7 +30,7 @@ struct s_fil	*ft_add_file(DIR *rep, struct dirent *fichier, t_mem *s, char *name
 	get_type(file, buf);
 	if (file->typ == 'l')
 	{
-		if (get_link(file, path) == 0)
+		if (get_link(file, file->path) == 0)
 			return (NULL);
 	}
 	file->bloc = buf.st_blocks;
@@ -98,13 +95,13 @@ void	ls_rec(t_mem *s, char *path)
 	while ((fichier = readdir(rep)) != NULL)
 	{
 		if (file == NULL)
-			file = ft_add_file(rep, fichier, s, path);
+			file = ft_add_file(fichier, path);
 		else
 		{
 			tail = file;
 			while (tail->next)
 				tail = tail->next;
-			tail->next = ft_add_file(rep, fichier, s, path);
+			tail->next = ft_add_file(fichier, path);
 		}
 	}
 	if (bool == 1)
@@ -125,15 +122,14 @@ void	ls_rec(t_mem *s, char *path)
 		if (s->R == 1)
 			parse_for_rec(s, file);
 	}
+	free(fichier);
 }
 
 int		main(int argc, char **argv)
 {
 	t_mem *s;
-	t_fil	*file;
 	s = (t_mem *)malloc(sizeof(t_mem));
-	parse_arg(argv, s, argc);
-	t_fil *tail;
+	parse_arg(argv, s);
 	int i;
 
 	i = 0;
@@ -146,5 +142,6 @@ int		main(int argc, char **argv)
 		ls_rec(s, s->files[i]);
 		i++;
 	}
+	free(s);
 	return (0);
 }

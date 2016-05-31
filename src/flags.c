@@ -28,6 +28,9 @@ void	flag_r(t_fil **begin_list)
 		current = next;
 	}
 	*begin_list = prev;
+	free(prev);
+	free(current);
+	free(next);
 }
 
 int		size_list(t_fil *begin_list)
@@ -51,6 +54,7 @@ void	init_tri(t_fil **newlist, t_fil **oldlist)
 	*oldlist = (*oldlist)->next;
 	tmp->next = NULL;
 	*newlist = tmp;
+	free(tmp);
 }
 
 void	push_front(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
@@ -91,15 +95,15 @@ t_fil	*tri_ascii(t_fil **begin_list)
 	while (*begin_list)
 	{
 		maillon = *newlist;
-		if (ft_strcmp((*begin_list)->name, maillon->name) >= 0)
+		if (ft_strcmp(maillon->name, (*begin_list)->name) > 0)
 		{
 			push_front(&tmp, &begin_list, &maillon, &newlist);
 		}
 		else
 		{
-			while (ft_strcmp((*begin_list)->name, maillon->name) < 0 && maillon->next)
+			while (ft_strcmp(maillon->name, (*begin_list)->name) <= 0 && maillon->next)
 				maillon = maillon->next;
-			if (maillon->next == NULL)
+			if (maillon->next == NULL)// && ft_strcmp(maillon->name, (*begin_list)->name) > 0)
 				push_back(&tmp, &begin_list, &maillon, &newlist);
 			else
 				insert_list(&tmp, &begin_list, &maillon, &newlist);
@@ -120,11 +124,11 @@ t_fil	*tri_date(t_fil **begin_list)
 	while (*begin_list)
 	{
 		maillon = *newlist;
-		if ((*begin_list)->time_s > maillon->time_s)
+		if (maillon->time_s < (*begin_list)->time_s)
 			push_front(&tmp, &begin_list, &maillon, &newlist);
 		else
 		{
-			while ((*begin_list)->time_s <= maillon->time_s && maillon->next)
+			while (maillon->time_s >= (*begin_list)->time_s && maillon->next)
 				maillon = maillon->next;
 			if (maillon->next == NULL)
 				push_back(&tmp, &begin_list, &maillon, &newlist);
@@ -137,10 +141,9 @@ t_fil	*tri_date(t_fil **begin_list)
 
 void	ft_flags(t_fil **begin_list, t_mem *s)
 {
+	*begin_list = tri_ascii(begin_list);
 	if (s->t == 1)
 		*begin_list = tri_date(begin_list);
-	else
-		*begin_list = tri_ascii(begin_list);
-	if (s->r == 0)
+	if (s->r == 1)
 		flag_r(begin_list);
 }

@@ -73,7 +73,7 @@ void	ft_print_link(t_fil *file)
 
 void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 {
-	int		i;
+	t_fil *tmp;
 
 	if ((s->nb_file > 1 || s->R == 1) && bool == 0)
 		ft_print_path(path);
@@ -92,7 +92,8 @@ void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 		}
 		if (bool == 1)
 			break;
-		file = file->next;
+		tmp = file->next;
+//		free(file);
+		file = tmp;
 	}
-	free(file);
 }
