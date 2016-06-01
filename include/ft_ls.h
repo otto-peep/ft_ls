@@ -6,14 +6,14 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/19 18:37:16 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/01 14:41:44 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 
 # define FT_LS_H
-
+# define STAT_HAVE_NSEC 1
 # define BUFSIZE_LINK 1024
 
 #include <dirent.h>

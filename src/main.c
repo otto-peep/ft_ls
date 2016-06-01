@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/19 18:51:08 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/01 15:09:17 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
 		lstat(name, &buf);
 	file->size = buf.st_size;
 	file->name = ft_strdup(fichier->d_name);
-	get_date(file, buf.st_ctime);
+	get_date(file, buf.st_ctime_nsec);
 	get_rights(file, buf);
 	get_type(file, buf);
 	if (file->typ == 'l')

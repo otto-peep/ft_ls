@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/17 18:58:58 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/01 14:36:42 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	push_back(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newli
 	**begin_list = (**begin_list)->next;
 	(*tmp)->next = NULL;
 	(*maillon)->next = *tmp;
+
 }
 
 void	insert_list(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
@@ -89,24 +90,24 @@ t_fil	*tri_ascii(t_fil **begin_list)
 	t_fil	**newlist;
 	t_fil	*maillon;
 	t_fil	*tmp;
+	int bool;
 
+	bool = 0;
 	newlist = malloc(sizeof(t_fil *) * size_list(*begin_list));
 	init_tri(newlist, begin_list);
 	while (*begin_list)
 	{
 		maillon = *newlist;
 		if (ft_strcmp(maillon->name, (*begin_list)->name) > 0)
-		{
 			push_front(&tmp, &begin_list, &maillon, &newlist);
-		}
 		else
 		{
-			while (ft_strcmp(maillon->name, (*begin_list)->name) <= 0 && maillon->next)
+			while ((bool = (ft_strcmp(maillon->name, (*begin_list)->name))) <= 0 && maillon->next)
 				maillon = maillon->next;
-			if (maillon->next == NULL)// && ft_strcmp(maillon->name, (*begin_list)->name) > 0)
-				push_back(&tmp, &begin_list, &maillon, &newlist);
-			else
+			if (bool > 0)
 				insert_list(&tmp, &begin_list, &maillon, &newlist);
+			else
+				push_back(&tmp, &begin_list, &maillon, &newlist);
 		}
 	}
 
@@ -118,7 +119,9 @@ t_fil	*tri_date(t_fil **begin_list)
 	t_fil	**newlist;
 	t_fil	*maillon;
 	t_fil	*tmp;
+	int		bool;
 
+	bool = 0;
 	newlist = malloc(sizeof(t_fil *) * size_list(*begin_list));
 	init_tri(newlist, begin_list);
 	while (*begin_list)
@@ -128,12 +131,12 @@ t_fil	*tri_date(t_fil **begin_list)
 			push_front(&tmp, &begin_list, &maillon, &newlist);
 		else
 		{
-			while (maillon->time_s >= (*begin_list)->time_s && maillon->next)
+			while ((bool = (maillon->time_s - (*begin_list)->time_s)) >= 0 && maillon->next)
 				maillon = maillon->next;
-			if (maillon->next == NULL)
-				push_back(&tmp, &begin_list, &maillon, &newlist);
-			else
+			if (bool <= 0)
 				insert_list(&tmp, &begin_list, &maillon, &newlist);
+			else
+				push_back(&tmp, &begin_list, &maillon, &newlist);
 		}
 	}
 	return (*newlist);
