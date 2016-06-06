@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/01 14:36:42 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/06 16:36:38 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_fil	*tri_date(t_fil **begin_list)
 			push_front(&tmp, &begin_list, &maillon, &newlist);
 		else
 		{
-			while ((bool = (maillon->time_s - (*begin_list)->time_s)) >= 0 && maillon->next)
+			while (((bool = (maillon->time_s - (*begin_list)->time_s)) > 0 || (bool == 0 && maillon->nanotime >= (*begin_list)->nanotime)) && maillon->next)
 				maillon = maillon->next;
 			if (bool <= 0)
 				insert_list(&tmp, &begin_list, &maillon, &newlist);

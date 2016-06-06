@@ -6,20 +6,21 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:22:37 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/13 19:21:33 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/06 15:19:01 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	get_date(t_fil *file, long filetime)
+void	get_date(t_fil *file, time_t second, long nano)
 {
 	char	**tab;
 	time_t	date;
 
-	file->time_s = filetime;
-	tab = ft_strsplit(ctime(&filetime), ' ');
-	date = time(&date) - filetime;
+	file->time_s = second;
+	file->nanotime = nano;
+	tab = ft_strsplit(ctime(&second), ' ');
+	date = time(&date) - second;
 	if ((date > 15778800) || (date < -15778800))
 	{
 		file->date_m = ft_strdup(tab[1]);

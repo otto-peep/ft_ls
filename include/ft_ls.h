@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/01 14:41:44 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/06 17:00:41 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define FT_LS_H
 # define STAT_HAVE_NSEC 1
 # define BUFSIZE_LINK 1024
+#define st_ctime st_ctim.tv_sec
 
 #include <dirent.h>
 #include <unistd.h>
@@ -44,6 +45,7 @@ typedef struct		s_fil
 	char			*path;
 	char			typ;
 	long long		time_s;
+	long			nanotime;
 	int				hide;
 	char			*rgh;
 	char			*name;
@@ -55,12 +57,12 @@ typedef struct		s_fil
 	int				links;
 	int				bloc;
 	char			*link;
-	float				maj;
+	float			maj;
 	float			min;
 }					t_fil;
 
 void	ft_error(char *str);
-void	get_date(t_fil *file, long filetime);
+void	get_date(t_fil *file, time_t second, long nano);
 void	get_rights(t_fil *f, struct stat buf);
 void	get_type(t_fil *f, struct stat buf);
 void	print_dir(t_fil *file, t_mem *s, char *path, int bool);

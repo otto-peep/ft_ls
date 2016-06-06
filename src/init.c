@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/05/19 17:34:01 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/06 17:27:22 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_add_arg(t_mem *s, char **argv, int i, int bool)
 		while (argv[i])
 		{
 			s->files[size] = ft_strdup(argv[i]);
+		//	if (argv[i][ft_strlen(argv[i]) - 1] == '/')
+		//		s->slash                                      //pas propre
 			size++;
 			i++;
 		}
