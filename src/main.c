@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/06 17:27:18 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/07 15:35:13 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,12 @@ void	ls_rec(t_mem *s, char *path)
 	rep = malloc (sizeof(DIR));
 	if ((rep = opendir(path)) == NULL)
 	{
-		rep = opendir(".");
+//		printf("hello");
+//		exit(0);
+//		rep = opendir(".");
+		ft_putstr("ls: ");
+		perror(path);
+		return ;
 		bool = 1;
 	}
 	while ((fichier = readdir(rep)) != NULL)

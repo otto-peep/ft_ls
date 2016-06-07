@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/06 16:36:38 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/07 14:04:42 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void	flag_r(t_fil **begin_list)
 		current = next;
 	}
 	*begin_list = prev;
-	free(prev);
-	free(current);
-	free(next);
 }
 
 int		size_list(t_fil *begin_list)
@@ -54,7 +51,6 @@ void	init_tri(t_fil **newlist, t_fil **oldlist)
 	*oldlist = (*oldlist)->next;
 	tmp->next = NULL;
 	*newlist = tmp;
-	free(tmp);
 }
 
 void	push_front(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)

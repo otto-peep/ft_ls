@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/06 17:02:44 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/07 13:56:41 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@ void	print_l(t_fil *file)
 {
 	ft_putchar(file->typ);
 	ft_putstr(file->rgh);
-	ft_putstr("\t");
+	ft_putstr("  ");
 	ft_putnbr(file->links);
-	ft_putstr("\t");
+	ft_putstr(" ");
 	ft_putstr(file->us_name);
-	ft_putstr("\t");
+	ft_putstr("  ");
 	ft_putstr(file->gr_name);
 	ft_putstr("\t");
 	if (file->typ != 'c' && file->typ != 'b')
@@ -27,16 +27,12 @@ void	print_l(t_fil *file)
 	else
 	{
 		ft_putnbr(file->maj);
-		ft_putstr(",\t");
+		ft_putstr(", ");
 		ft_putnbr(file->min);
 	}
 	ft_putstr("\t");
 	ft_putstr(file->date_m);
-	ft_putstr("\t");
-	ft_putnbr(file->time_s);
-	ft_putstr("\t");
-	ft_putnbr(file->nanotime);
-	ft_putstr("\t");
+	ft_putstr(" ");
 }
 void	total_blocks(t_fil *file, t_mem *s)
 {
@@ -61,10 +57,7 @@ void	ft_print_path(char *path)
 	ft_putstr("\n");
 	if (ft_strcmp(path, ".") != 0)
 	{
-		if (path[1] == '/')
-			ft_putstr(ft_strsub(path, 1, ft_strlen(path)));
-		else
-			ft_putstr(path);
+		ft_putstr(path);
 		ft_putstr(":\n");
 	}
 }
