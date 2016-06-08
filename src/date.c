@@ -37,5 +37,5 @@ void	get_date(t_fil *file, time_t second, long nano)
 		file->date_m = ft_strjoin(file->date_m, "  ");
 		file->date_m = ft_strjoin(file->date_m, ft_strsub(tab[3], 0, (ft_strlen(tab[3]) - 3)));
 	}
-	free(tab);
+//	free(tab);
 }
