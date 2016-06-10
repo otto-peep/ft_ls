@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/07 14:04:42 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/10 17:07:55 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,39 +53,43 @@ void	init_tri(t_fil **newlist, t_fil **oldlist)
 	*newlist = tmp;
 }
 
-void	push_front(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+void	push_front(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
 {
-	*tmp = **begin_list;
+	t_fil *tmp;
+
+	tmp = **begin_list;
 	**begin_list = (**begin_list)->next;
-	(*tmp)->next = *maillon;
-	**newlist = *tmp;
+	tmp->next = *maillon;
+	**newlist = tmp;
 }
 
-void	push_back(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+void	push_back(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
 {
-	*tmp = **begin_list;
-	**begin_list = (**begin_list)->next;
-	(*tmp)->next = NULL;
-	(*maillon)->next = *tmp;
+	t_fil *tmp;
 
+	tmp = **begin_list;
+	**begin_list = (**begin_list)->next;
+	tmp->next = NULL;
+	(*maillon)->next = tmp;
 }
 
-void	insert_list(t_fil **tmp, t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+void	insert_list(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
 {
-	*tmp = **newlist;
-	while ((*tmp)->next != *maillon && (*tmp)->next)
-		*tmp = (*tmp)->next;
-	(*tmp)->next = **begin_list;
-	*tmp = (*tmp)->next;
+	t_fil *tmp;
+
+	tmp = **newlist;
+	while (tmp->next != *maillon && tmp->next)
+		tmp = tmp->next;
+	tmp->next = **begin_list;
+	tmp = tmp->next;
 	**begin_list = (**begin_list)->next;
-	(*tmp)->next = *maillon;
+	tmp->next = *maillon;
 }
 
 t_fil	*tri_ascii(t_fil **begin_list)
 {
 	t_fil	**newlist;
 	t_fil	*maillon;
-	t_fil	*tmp;
 	int bool;
 
 	bool = 0;
@@ -95,18 +99,17 @@ t_fil	*tri_ascii(t_fil **begin_list)
 	{
 		maillon = *newlist;
 		if (ft_strcmp(maillon->name, (*begin_list)->name) > 0)
-			push_front(&tmp, &begin_list, &maillon, &newlist);
+			push_front(&begin_list, &maillon, &newlist);
 		else
 		{
 			while ((bool = (ft_strcmp(maillon->name, (*begin_list)->name))) <= 0 && maillon->next)
 				maillon = maillon->next;
 			if (bool > 0)
-				insert_list(&tmp, &begin_list, &maillon, &newlist);
+				insert_list(&begin_list, &maillon, &newlist);
 			else
-				push_back(&tmp, &begin_list, &maillon, &newlist);
+				push_back(&begin_list, &maillon, &newlist);
 		}
 	}
-
 	return (*newlist);
 }
 
@@ -114,7 +117,6 @@ t_fil	*tri_date(t_fil **begin_list)
 {
 	t_fil	**newlist;
 	t_fil	*maillon;
-	t_fil	*tmp;
 	int		bool;
 
 	bool = 0;
@@ -124,15 +126,15 @@ t_fil	*tri_date(t_fil **begin_list)
 	{
 		maillon = *newlist;
 		if (maillon->time_s < (*begin_list)->time_s)
-			push_front(&tmp, &begin_list, &maillon, &newlist);
+			push_front(&begin_list, &maillon, &newlist);
 		else
 		{
 			while (((bool = (maillon->time_s - (*begin_list)->time_s)) > 0 || (bool == 0 && maillon->nanotime >= (*begin_list)->nanotime)) && maillon->next)
-				maillon = maillon->next;
+			maillon = maillon->next;
 			if (bool <= 0)
-				insert_list(&tmp, &begin_list, &maillon, &newlist);
+				insert_list(&begin_list, &maillon, &newlist);
 			else
-				push_back(&tmp, &begin_list, &maillon, &newlist);
+				push_back(&begin_list, &maillon, &newlist);
 		}
 	}
 	return (*newlist);

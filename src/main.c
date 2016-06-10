@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/07 15:35:13 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/10 17:17:00 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ void	ls_rec(t_mem *s, char *path)
 			tail = file;
 			while (tail->next)
 				tail = tail->next;
+			ft_putstr("before");
 			tail->next = ft_add_file(fichier, path);
+			ft_putendl("aft");
 		}
 	}
 	if (bool == 1)
@@ -122,6 +124,7 @@ void	ls_rec(t_mem *s, char *path)
 		perror("error");
 	if (bool == 0)
 	{
+		ft_putendl("yO");
 		ft_flags(&file, s);
 		print_dir(file, s, path, 0);
 		if (s->R == 1)
