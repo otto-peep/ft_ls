@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/10 17:07:55 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/13 13:10:46 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,24 +118,44 @@ t_fil	*tri_date(t_fil **begin_list)
 	t_fil	**newlist;
 	t_fil	*maillon;
 	int		bool;
-
+	int a = 49;
 	bool = 0;
 	newlist = malloc(sizeof(t_fil *) * size_list(*begin_list));
 	init_tri(newlist, begin_list);
 	while (*begin_list)
 	{
+		ft_putendl("in while");
 		maillon = *newlist;
+		ft_putendl(maillon->name);
 		if (maillon->time_s < (*begin_list)->time_s)
+		{
+			ft_putstr("front");
+			printf("front : %s %s %s \n", maillon->name,(*begin_list)->name, maillon->next->name);
 			push_front(&begin_list, &maillon, &newlist);
+		}
 		else
 		{
-			while (((bool = (maillon->time_s - (*begin_list)->time_s)) > 0 || (bool == 0 && maillon->nanotime >= (*begin_list)->nanotime)) && maillon->next)
-			maillon = maillon->next;
-			if (bool <= 0)
-				insert_list(&begin_list, &maillon, &newlist);
-			else
-				push_back(&begin_list, &maillon, &newlist);
+			ft_putstr("helo");
+			while ((((bool = (maillon->time_s - (*begin_list)->time_s)) > 0 || (bool == 0 && maillon->nanotime >= (*begin_list)->nanotime)) && maillon->next) && a > 0)
+			{
+			//	ft_putnbr(bool);
+				printf("while : %s ; %s ; %s\n", maillon->name, (*begin_list)->name, maillon->next);
+				maillon = maillon->next;
+				a--;
 		}
+			if (bool <= 0)
+			{
+				printf("insert : %s ; %s ; %s\n", maillon->name, (*begin_list)->name, maillon->next);
+				insert_list(&begin_list, &maillon, &newlist);
+			}
+			else
+			{
+				printf("back : %s ; %s ; %s\n", maillon->name, (*begin_list)->name, maillon->next);
+				push_back(&begin_list, &maillon, &newlist);
+			}
+		}
+		ft_putnbr(a);
+		a = a - 1;
 	}
 	return (*newlist);
 }

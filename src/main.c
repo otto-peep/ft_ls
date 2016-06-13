@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/10 17:17:00 by pconin           ###   ########.fr       */
+/*   Updated: 2016/06/13 13:10:48 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
 		lstat(name, &buf);
 	file->size = buf.st_size;
 	file->name = ft_strdup(fichier->d_name);
-	get_date(file, buf.st_ctimespec.tv_sec, buf.st_ctimespec.tv_nsec);
+	get_date(file, buf.st_mtimespec.tv_sec, buf.st_mtimespec.tv_nsec);
 	get_rights(file, buf);
 	get_type(file, buf);
 	if (file->typ == 'l')
@@ -52,7 +52,10 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 	while (file)
 	{
 		if (file->typ == 'd' && file->hide == 0)
+		{
+			ft_putendl(file->path);
 			ls_rec(s, file->path);
+		}
 		else if (file->typ == 'd' && file->hide == 1 &&
 				file->name[1] != '\0' && file->name[0] != '.')
 			ls_rec(s, file->path);
@@ -106,9 +109,7 @@ void	ls_rec(t_mem *s, char *path)
 			tail = file;
 			while (tail->next)
 				tail = tail->next;
-			ft_putstr("before");
 			tail->next = ft_add_file(fichier, path);
-			ft_putendl("aft");
 		}
 	}
 	if (bool == 1)
@@ -126,7 +127,9 @@ void	ls_rec(t_mem *s, char *path)
 	{
 		ft_putendl("yO");
 		ft_flags(&file, s);
+		ft_putendl("after flags");
 		print_dir(file, s, path, 0);
+		ft_putstr("after print");
 		if (s->R == 1)
 			parse_for_rec(s, file);
 	}
