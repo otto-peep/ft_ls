@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/06/13 13:10:48 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/15 17:10:34 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 	{
 		if (file->typ == 'd' && file->hide == 0)
 		{
-			ft_putendl(file->path);
+//			ft_putendl(file->path);
 			ls_rec(s, file->path);
 		}
 		else if (file->typ == 'd' && file->hide == 1 &&
@@ -125,11 +125,8 @@ void	ls_rec(t_mem *s, char *path)
 		perror("error");
 	if (bool == 0)
 	{
-		ft_putendl("yO");
 		ft_flags(&file, s);
-		ft_putendl("after flags");
 		print_dir(file, s, path, 0);
-		ft_putstr("after print");
 		if (s->R == 1)
 			parse_for_rec(s, file);
 	}
@@ -138,21 +135,15 @@ void	ls_rec(t_mem *s, char *path)
 
 int		main(int argc, char **argv)
 {
-	t_mem *s;
-	s = (t_mem *)malloc(sizeof(t_mem));
-	parse_arg(argv, s);
+	t_mem s;
 	int i;
 
 	i = 0;
-	DIR* rep = NULL;
-	struct dirent	*fichier = NULL;
-	fichier = malloc(sizeof(struct dirent));
-	rep = malloc(sizeof(DIR));
-	while (s->files[i] != NULL)
+	parse_arg(argv, &s);
+	while (s.files[i] != NULL)
 	{
-		ls_rec(s, s->files[i]);
+		ls_rec(&s, s.files[i]);
 		i++;
 	}
-	free(s);
 	return (0);
 }
