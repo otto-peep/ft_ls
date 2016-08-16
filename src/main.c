@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/15 17:10:34 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/16 13:26:26 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,72 +63,39 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 	}
 }
 
-int		ft_only_one(t_mem *s, t_fil *file, char *fname)
-{
-	while (file)
-	{
-		if (ft_strcmp(file->name, fname) == 0)
-		{
-			print_dir(file, s, ".", 1);
-			return (1);
-		}
-		file = file->next;
-	}
-	return (0);
-}
-
-
 void	ls_rec(t_mem *s, char *path)
 {
 	DIR *rep = NULL;
 	struct dirent *fichier = NULL;
 	t_fil *tail;
 	t_fil *file;
-	int		bool;
+	int		bool; // le b
 
 	bool = 0;
 	file = NULL;
 	fichier = malloc(sizeof(struct dirent));
 	rep = malloc (sizeof(DIR));
-	if ((rep = opendir(path)) == NULL)
-	{
-//		printf("hello");
-//		exit(0);
-//		rep = opendir(".");
-		ft_putstr("ls: ");
-		perror(path);
-		return ;
-		bool = 1;
-	}
-	while ((fichier = readdir(rep)) != NULL)
-	{
-		if (file == NULL)
-			file = ft_add_file(fichier, path);
-		else
+	if (my_opendir(path, &rep) != 0)
+	{// dans l'ancien ls, si opendir = NULL alors bool = 1
+		while ((fichier = readdir(rep)) != NULL)
 		{
-			tail = file;
-			while (tail->next)
-				tail = tail->next;
-			tail->next = ft_add_file(fichier, path);
+			if (file == NULL)
+				file = ft_add_file(fichier, path);
+			else
+			{
+				tail = file;
+				while (tail->next)
+					tail = tail->next;
+				tail->next = ft_add_file(fichier, path);
+			}
 		}
-	}
-	if (bool == 1)
-	{
-		if (ft_only_one(s, file, path) == 0)
+		if (my_closedir(path, &rep) != 0)
 		{
-			ft_putstr("ls :");
-			perror(path);
-			return ;
+			ft_flags(&file, s);
+			print_dir(file, s, path, 0);
+			if (s->R == 1)
+				parse_for_rec(s, file);
 		}
-	}
-	if (closedir(rep) == -1)
-		perror("error");
-	if (bool == 0)
-	{
-		ft_flags(&file, s);
-		print_dir(file, s, path, 0);
-		if (s->R == 1)
-			parse_for_rec(s, file);
 	}
 	free(fichier);
 }

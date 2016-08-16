@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/15 17:06:53 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/16 13:26:28 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_mem
 	int				t;
 	char			**files;
 	int				nb_file;
+	void			(*sort);
 }					t_mem;
 
 typedef struct		s_fil
@@ -71,6 +72,8 @@ void	ft_flags(t_fil **begin_list, t_mem *s);
 //t_fil	*ft_fildup(t_fil *old);
 void	ls_rec(t_mem *s, char *path);
 int		get_link(t_fil *f, char *path);
+int		my_opendir(const char *path, DIR **rep);
+int		my_closedir(const char *path, DIR **rep);
 
 #endif
 
