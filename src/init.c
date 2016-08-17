@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/16 12:54:48 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/17 11:45:05 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_error(char *str)
 {
-	ft_putstr(str);
-	exit(0);
+	ft_putstr("ft_ls: ");
+	perror(str);
 }
 
 void	init_arg(t_mem *s)

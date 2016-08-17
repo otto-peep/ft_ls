@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/16 13:26:26 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/17 11:53:03 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
 	file = (t_fil *)malloc(sizeof(t_fil));
 	file->path = ft_strjoin(name, "/");
 	file->path = ft_strjoin(file->path, fichier->d_name);
-	if ((lstat(file->path, &buf)) == -1)
-		lstat(name, &buf);
+	if ((lstat(file->path, &buf)) < 0)
+	{
+		if (lstat(name, &buf) < 0)
+		{
+			ft_error(file->path);
+		}
+	}
 	file->size = buf.st_size;
 	file->name = ft_strdup(fichier->d_name);
 	get_date(file, buf.st_mtimespec.tv_sec, buf.st_mtimespec.tv_nsec);
@@ -66,15 +71,11 @@ void	parse_for_rec(t_mem *s, t_fil *file)
 void	ls_rec(t_mem *s, char *path)
 {
 	DIR *rep = NULL;
-	struct dirent *fichier = NULL;
+	struct dirent *fichier;
 	t_fil *tail;
 	t_fil *file;
-	int		bool; // le b
 
-	bool = 0;
 	file = NULL;
-	fichier = malloc(sizeof(struct dirent));
-	rep = malloc (sizeof(DIR));
 	if (my_opendir(path, &rep) != 0)
 	{// dans l'ancien ls, si opendir = NULL alors bool = 1
 		while ((fichier = readdir(rep)) != NULL)
@@ -97,7 +98,6 @@ void	ls_rec(t_mem *s, char *path)
 				parse_for_rec(s, file);
 		}
 	}
-	free(fichier);
 }
 
 int		main(int argc, char **argv)
