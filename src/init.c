@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 15:03:53 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 17:06:09 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,11 @@ void	ft_add_arg(t_mem *s, char **argv, int i, int bool)
 		while (argv[i])
 		{
 			s->files[size] = ft_strdup(argv[i]);
-		//	if (argv[i][ft_strlen(argv[i]) - 1] == '/')
-		//		s->slash                                      //pas propre
 			size++;
 			i++;
 		}
 	}
 }
-
-/*/ void	ft_function_attr(s)
-{
-	if (s->r == 1 && s->t == 0)
-		s->sort = &(name_sort_rev);
-	else if (s->r == 1 && s->t == 1)
-		s->sort = &(time_sort_rev);
-
-}
-/*/
 
 void	parse_arg(char **argv, t_mem *s)
 {
@@ -117,5 +105,4 @@ void	parse_arg(char **argv, t_mem *s)
 	}
 	if (s->files == NULL)
 		ft_add_arg(s, argv, i, 1);
-//	ft_function_attr(s);
 }

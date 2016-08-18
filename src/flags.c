@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 16:10:02 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 17:46:19 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,47 +43,32 @@ int		size_list(t_fil *begin_list)
 	return (count);
 }
 
-void	init_tri(t_fil **newlist, t_fil **oldlist)
+void	insert_list(t_fil **begin_list, t_fil *maillon, t_fil **newlist, int bool)
 {
 	t_fil *tmp;
 
-	tmp = *oldlist;
-	*oldlist = (*oldlist)->next;
-	tmp->next = NULL;
-	*newlist = tmp;
+	tmp = NULL;
+	if (bool == 1)
+	{
+		(*newlist)->next = *begin_list;
+		*begin_list = *newlist;
+		return ;
+	}
+	else
+	{
+		tmp = *begin_list;
+		maillon->next = *newlist;
+		(*newlist)->next = tmp;
+	}
 }
 
-void	push_front(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
+int		ft_timecmp(t_fil *cur, t_fil *new)
 {
-	t_fil *tmp;
-
-	tmp = **begin_list;
-	**begin_list = (**begin_list)->next;
-	tmp->next = *maillon;
-	**newlist = tmp;
-}
-
-void	push_back(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
-{
-	t_fil *tmp;
-
-	tmp = **begin_list;
-	**begin_list = (**begin_list)->next;
-	tmp->next = NULL;
-	(*maillon)->next = tmp;
-}
-
-void	insert_list(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
-{
-	t_fil *tmp;
-
-	tmp = **newlist;
-	while (tmp->next != *maillon && tmp->next)
-		tmp = tmp->next;
-	tmp->next = **begin_list;
-	tmp = tmp->next;
-	**begin_list = (**begin_list)->next;
-	tmp->next = *maillon;
+	if (cur->time_s <= new->time_s && (cur->time_s != new->time_s ||
+		cur->nanotime < new->nanotime || ft_strcmp(cur->name, new->name) > 0))
+		return (1);
+	else
+		return (0);
 }
 
 void	tri_ascii(t_fil **head, t_fil *new)
@@ -91,24 +76,25 @@ void	tri_ascii(t_fil **head, t_fil *new)
 	t_fil	*maillon;
 	t_fil	*pre;
 
+	ft_putendl("in ascii sort");
 	maillon = *head;
 	pre = NULL;
-	if (ft_strcmp(mem->name, new->name) > 0)
-		insert_list(head, NULL, &new)
+	if (ft_strcmp(maillon->name, new->name) > 0)
+		insert_list(head, NULL, &new, 1);
 	else
 	{
 		while (maillon->next)
 		{
 			if (ft_strcmp(maillon->name, new->name) > 0)
 			{
-				insert_list(&maillon, pre, &new);
+				insert_list(&maillon, pre, &new, 0);
 				return;
 			}
 			pre = maillon;
 			maillon = maillon->next;
 		}
 		if (ft_strcmp(maillon->name, new->name) > 0)
-			insert_list(&maillon, pre, &new);
+			insert_list(&maillon, pre, &new, 0);
 		else
 			maillon->next = new;
 	}
@@ -117,37 +103,29 @@ void	tri_ascii(t_fil **head, t_fil *new)
 
 void	tri_date(t_fil **head, t_fil *new)
 {
-	t_fil	*maillon;
+	t_fil	*cur;
 	t_fil	*pre;
 
-	maillon = *head;
+	cur = *head;
 	pre = NULL;
-	if (maillon->time_s <=)
-		insert_list(head, NULL, &new)
-	else
+	if (ft_timecmp(cur, new) == 1)
 	{
-		while (maillon->next)
-		{
-			if (ft_strcmp(maillon->name, new->name) > 0)
-			{
-				insert_list(&maillon, pre, &new);
-				return;
-			}
-			pre = maillon;
-			maillon = maillon->next;
-		}
-		if (ft_strcmp(maillon->name, new->name) > 0)
-			insert_list(&maillon, pre, &new);
-		else
-			maillon->next = new;
+		insert_list(head, NULL, &new, 1);
+		return;
 	}
+	while (cur->next)
+	{
+		if (ft_timecmp(cur, new))
+		{
+			insert_list(&cur, pre, &new, 0);
+			return;
+		}
+		pre = cur;
+		cur = cur->next;
+	}
+	if (ft_timecmp(cur, new))
+		insert_list(&cur, pre, &new, 0);
+	else
+		cur->next = new;
 }
 
-void	ft_flags(t_fil **begin_list, t_mem *s)
-{
-	*begin_list = tri_ascii(begin_list);
-	if (s->t == 1)
-		*begin_list = tri_date(begin_list);
-	if (s->r == 1)
-		flag_r(begin_list);
-}

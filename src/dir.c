@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/16 12:25:52 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/17 11:48:07 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 17:10:10 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	my_opendir(const char *path, DIR **rep)
 {
 	if ((*rep = opendir(path)) == NULL)
 	{
-		ft_error(path);
+		ft_error((char *)path);
 		return (0);
 	}
 	else
@@ -27,7 +27,7 @@ int		my_closedir(const char *path, DIR **rep)
 {
 	if ((closedir(*rep)) < 0)
 	{
-		ft_error(path);
+		ft_error((char *)path);
 		return (0);
 	}
 	*rep = NULL;

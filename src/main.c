@@ -6,19 +6,19 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 15:53:46 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 17:52:52 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 
-void	ft_add_file(struct dirent *fichier, char *name, t_fil **list)
+void	ft_add_file(t_mem *s, struct dirent *fichier, char *name, t_fil **list)
 {
 	t_fil		*file;
 	struct stat	 buf;
 
-	file = (t_fil *)malloc(sizeof(t_fil));
+	file = NULL;
 	file->path = ft_strjoin(name, "/");
 	file->path = ft_strjoin(file->path, fichier->d_name);
 	if ((lstat(file->path, &buf)) < 0)
@@ -29,6 +29,7 @@ void	ft_add_file(struct dirent *fichier, char *name, t_fil **list)
 			return ;
 		}
 	}
+	ft_putendl("1");
 	file->size = buf.st_size;
 	file->name = ft_strdup(fichier->d_name);
 	get_date(file, buf.st_mtimespec.tv_sec, buf.st_mtimespec.tv_nsec);
@@ -37,7 +38,10 @@ void	ft_add_file(struct dirent *fichier, char *name, t_fil **list)
 	if (file->typ == 'l')
 	{
 		if (get_link(file, file->path) == 0)
-			return (NULL);
+		{
+			ft_error(file->path);
+			return ;
+		}
 	}
 	file->bloc = buf.st_blocks;
 	file->us_name = ft_strdup((getpwuid(buf.st_uid))->pw_name);
@@ -45,15 +49,16 @@ void	ft_add_file(struct dirent *fichier, char *name, t_fil **list)
 		file->gr_name = ft_itoa(buf.st_gid);
 	else
 		file->gr_name = ft_strdup((getgrgid(buf.st_gid)->gr_name));
+	ft_putendl("2");
 	file->hide = 0;
 	if (file->name[0] == '.' )
 		file->hide = 1;
 	file->links = buf.st_nlink;
 	file->next = NULL;
 	if (list == NULL)
-		list = *list = file;
+		list = &file;
 	else
-		
+		s->f_sort(list, file);
 }
 
 void	parse_for_rec(t_mem *s, t_fil *file)
@@ -78,17 +83,16 @@ void	ls_rec(t_mem *s, char *path)
 	struct dirent *fichier;
 	t_fil *list;
 
-	file = NULL;
+	list = NULL;
 	if (my_opendir(path, &rep) != 0)
 	{
 		while ((fichier = readdir(rep)) != NULL)
-			ft_add_file(fichier, path, &list);
+			ft_add_file(s, fichier, path, &list);
 		if (my_closedir(path, &rep) != 0)
 		{
-			ft_flags(&file, s);
-			print_dir(file, s, path, 0);
+			print_dir(list, s, path, 0);
 			if (s->R == 1)
-				parse_for_rec(s, file);
+				parse_for_rec(s, list);
 			// fonction suppression liste
 		}
 	}
