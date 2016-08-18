@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 15:53:34 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 16:10:02 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	tri_date(t_fil **head, t_fil *new)
 
 	maillon = *head;
 	pre = NULL;
-	if (ft_strcmp(mem->name, new->name) > 0)
+	if (maillon->time_s <=)
 		insert_list(head, NULL, &new)
 	else
 	{
