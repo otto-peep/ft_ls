@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/17 11:43:50 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 14:59:18 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ typedef struct		s_mem
 	int				R;
 	int				a;
 	int				r;
-	int				t;
 	char			**files;
 	int				nb_file;
-	void			(*sort);
+	void			(*f_sort)();
 }					t_mem;
 
 typedef struct		s_fil

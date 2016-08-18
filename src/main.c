@@ -6,14 +6,14 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/17 21:56:09 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 15:53:46 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 
-struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
+void	ft_add_file(struct dirent *fichier, char *name, t_fil **list)
 {
 	t_fil		*file;
 	struct stat	 buf;
@@ -26,6 +26,7 @@ struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
 		if (lstat(name, &buf) < 0)
 		{
 			ft_error(file->path);
+			return ;
 		}
 	}
 	file->size = buf.st_size;
@@ -49,7 +50,10 @@ struct s_fil	*ft_add_file(struct dirent *fichier, char *name)
 		file->hide = 1;
 	file->links = buf.st_nlink;
 	file->next = NULL;
-	return (file);
+	if (list == NULL)
+		list = *list = file;
+	else
+		
 }
 
 void	parse_for_rec(t_mem *s, t_fil *file)
@@ -72,30 +76,20 @@ void	ls_rec(t_mem *s, char *path)
 {
 	DIR *rep = NULL;
 	struct dirent *fichier;
-	t_fil *tail;
-	t_fil *file;
+	t_fil *list;
 
 	file = NULL;
 	if (my_opendir(path, &rep) != 0)
-	{// dans l'ancien ls, si opendir = NULL alors bool = 1
+	{
 		while ((fichier = readdir(rep)) != NULL)
-		{
-			if (file == NULL)
-				file = ft_add_file(fichier, path);
-			else
-			{
-				tail = file;
-				while (tail->next)
-					tail = tail->next;
-				tail->next = ft_add_file(fichier, path);
-			}
-		}
+			ft_add_file(fichier, path, &list);
 		if (my_closedir(path, &rep) != 0)
 		{
 			ft_flags(&file, s);
 			print_dir(file, s, path, 0);
 			if (s->R == 1)
 				parse_for_rec(s, file);
+			// fonction suppression liste
 		}
 	}
 }

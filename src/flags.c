@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/15 17:10:32 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 15:53:34 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,60 +86,61 @@ void	insert_list(t_fil ***begin_list, t_fil **maillon, t_fil ***newlist)
 	tmp->next = *maillon;
 }
 
-t_fil	*tri_ascii(t_fil **begin_list)
+void	tri_ascii(t_fil **head, t_fil *new)
 {
-	t_fil	**newlist;
 	t_fil	*maillon;
-	int bool;
+	t_fil	*pre;
 
-	bool = 0;
-	newlist = malloc(sizeof(t_fil *) * size_list(*begin_list));
-	init_tri(newlist, begin_list);
-	while (*begin_list)
+	maillon = *head;
+	pre = NULL;
+	if (ft_strcmp(mem->name, new->name) > 0)
+		insert_list(head, NULL, &new)
+	else
 	{
-		maillon = *newlist;
-		if (ft_strcmp(maillon->name, (*begin_list)->name) > 0)
-			push_front(&begin_list, &maillon, &newlist);
-		else
+		while (maillon->next)
 		{
-			while ((bool = (ft_strcmp(maillon->name, (*begin_list)->name))) <= 0 && maillon->next)
-				maillon = maillon->next;
-			if (bool > 0)
-				insert_list(&begin_list, &maillon, &newlist);
-			else
-				push_back(&begin_list, &maillon, &newlist);
+			if (ft_strcmp(maillon->name, new->name) > 0)
+			{
+				insert_list(&maillon, pre, &new);
+				return;
+			}
+			pre = maillon;
+			maillon = maillon->next;
 		}
+		if (ft_strcmp(maillon->name, new->name) > 0)
+			insert_list(&maillon, pre, &new);
+		else
+			maillon->next = new;
 	}
-	return (*newlist);
 }
 
-t_fil	*tri_date(t_fil **begin_list)
+
+void	tri_date(t_fil **head, t_fil *new)
 {
-	t_fil	**newlist;
 	t_fil	*maillon;
-	int		bool;
-	int a = 49;
-	bool = 0;
-	newlist = malloc(sizeof(t_fil *) * size_list(*begin_list));
-	init_tri(newlist, begin_list);
-	while (*begin_list)
+	t_fil	*pre;
+
+	maillon = *head;
+	pre = NULL;
+	if (ft_strcmp(mem->name, new->name) > 0)
+		insert_list(head, NULL, &new)
+	else
 	{
-		maillon = *newlist;
-		if (maillon->time_s < (*begin_list)->time_s)
+		while (maillon->next)
 		{
-			push_front(&begin_list, &maillon, &newlist);
+			if (ft_strcmp(maillon->name, new->name) > 0)
+			{
+				insert_list(&maillon, pre, &new);
+				return;
+			}
+			pre = maillon;
+			maillon = maillon->next;
 		}
+		if (ft_strcmp(maillon->name, new->name) > 0)
+			insert_list(&maillon, pre, &new);
 		else
-		{
-			while ((((bool = (maillon->time_s - (*begin_list)->time_s)) > 0 || (bool == 0 && maillon->nanotime >= (*begin_list)->nanotime)) && maillon->next) && a > 0)
-				maillon = maillon->next;
-		}
-			if (bool <= 0)
-				insert_list(&begin_list, &maillon, &newlist);
-			else
-				push_back(&begin_list, &maillon, &newlist);
+			maillon->next = new;
 	}
-	return (*newlist);
 }
 
 void	ft_flags(t_fil **begin_list, t_mem *s)

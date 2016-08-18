@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/17 11:45:05 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/18 15:03:53 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_arg(t_mem *s)
   s->R = 0;
   s->a = 0;
   s->r = 0;
-  s->t = 0;
+  s->f_sort = &(tri_ascii);
   s->files = NULL;
   s->nb_file = 1;
 }
@@ -40,7 +40,7 @@ void	check_flag(t_mem *s, char c)
 	else if (c == 'r')
 		s->r = 1;
 	else if (c == 't')
-		s->t = 1;
+		s->f_sort = &(tri_date);
 	else
 	{
 		ft_putstr("ls: illegal option -- ");
