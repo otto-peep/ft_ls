@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 17:46:19 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/20 11:43:26 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ void	insert_list(t_fil **begin_list, t_fil *maillon, t_fil **newlist, int bool)
 
 int		ft_timecmp(t_fil *cur, t_fil *new)
 {
-	if (cur->time_s <= new->time_s && (cur->time_s != new->time_s ||
-		cur->nanotime < new->nanotime || ft_strcmp(cur->name, new->name) > 0))
+	if (cur->time_s < new->time_s || (cur->time_s == new->time_s && (
+		cur->nanotime < new->nanotime || (cur->nanotime == new->nanotime && 
+			ft_strcmp(cur->name, new->name) > 0))))
 		return (1);
 	else
 		return (0);
@@ -76,7 +77,6 @@ void	tri_ascii(t_fil **head, t_fil *new)
 	t_fil	*maillon;
 	t_fil	*pre;
 
-	ft_putendl("in ascii sort");
 	maillon = *head;
 	pre = NULL;
 	if (ft_strcmp(maillon->name, new->name) > 0)

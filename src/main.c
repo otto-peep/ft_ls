@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 17:52:52 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/20 12:16:52 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_add_file(t_mem *s, struct dirent *fichier, char *name, t_fil **list)
 	struct stat	 buf;
 
 	file = NULL;
+	file = (t_fil*)malloc(sizeof(t_fil));
 	file->path = ft_strjoin(name, "/");
 	file->path = ft_strjoin(file->path, fichier->d_name);
 	if ((lstat(file->path, &buf)) < 0)
@@ -29,7 +30,6 @@ void	ft_add_file(t_mem *s, struct dirent *fichier, char *name, t_fil **list)
 			return ;
 		}
 	}
-	ft_putendl("1");
 	file->size = buf.st_size;
 	file->name = ft_strdup(fichier->d_name);
 	get_date(file, buf.st_mtimespec.tv_sec, buf.st_mtimespec.tv_nsec);
@@ -49,14 +49,13 @@ void	ft_add_file(t_mem *s, struct dirent *fichier, char *name, t_fil **list)
 		file->gr_name = ft_itoa(buf.st_gid);
 	else
 		file->gr_name = ft_strdup((getgrgid(buf.st_gid)->gr_name));
-	ft_putendl("2");
 	file->hide = 0;
 	if (file->name[0] == '.' )
 		file->hide = 1;
 	file->links = buf.st_nlink;
 	file->next = NULL;
-	if (list == NULL)
-		list = &file;
+	if (*list == NULL)
+		*list = file;
 	else
 		s->f_sort(list, file);
 }
@@ -90,9 +89,12 @@ void	ls_rec(t_mem *s, char *path)
 			ft_add_file(s, fichier, path, &list);
 		if (my_closedir(path, &rep) != 0)
 		{
+			if(s->r == 1)
+				flag_r(&list);
 			print_dir(list, s, path, 0);
 			if (s->R == 1)
 				parse_for_rec(s, list);
+			
 			// fonction suppression liste
 		}
 	}
