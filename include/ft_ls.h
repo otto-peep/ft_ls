@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/20 12:15:27 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 20:12:23 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	print_dir(t_fil *file, t_mem *s, char *path, int bool);
 int		get_link(t_fil *f, char *path);
 void	get_type(t_fil *f, struct stat buf);
 void	get_rights(t_fil *f, struct stat buf);
-
+//lstdel.c
+void	lstdel(t_fil *list, t_mem *s);
 
 #endif
 

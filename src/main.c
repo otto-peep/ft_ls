@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/20 12:16:52 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 20:19:41 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ls_rec(t_mem *s, char *path)
 			print_dir(list, s, path, 0);
 			if (s->R == 1)
 				parse_for_rec(s, list);
-			
+			lstdel(list, s);
 			// fonction suppression liste
 		}
 	}
@@ -111,6 +111,11 @@ int		main(int argc, char **argv)
 	{
 		ls_rec(&s, s.files[i]);
 		i++;
+	}
+	while (s.files != NULL)
+	{
+		ft_strdel(s.files);
+		s.files++;
 	}
 	return (0);
 }
