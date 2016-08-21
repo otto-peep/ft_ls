@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 19:49:28 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:55:11 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	ft_error(char *str)
 
 void	init_arg(t_mem *s)
 {
-  s->l = 0;
-  s->R = 0;
-  s->a = 0;
-  s->r = 0;
-  s->f_sort = &(tri_ascii);
-  s->files = NULL;
-  s->nb_file = 1;
+	s->l = 0;
+	s->rec = 0;
+	s->a = 0;
+	s->r = 0;
+	s->f_sort = &(tri_ascii);
+	s->files = NULL;
+	s->nb_file = 1;
 }
 
 void	check_flag(t_mem *s, char c)
@@ -34,7 +34,7 @@ void	check_flag(t_mem *s, char c)
 	if (c == 'l')
 		s->l = 1;
 	else if (c == 'R')
-		s->R = 1;
+		s->rec = 1;
 	else if (c == 'a')
 		s->a = 1;
 	else if (c == 'r')
@@ -45,7 +45,8 @@ void	check_flag(t_mem *s, char c)
 	{
 		ft_putstr("ls: illegal option -- ");
 		ft_putchar(c);
-		ft_putstr("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+		ft_putstr(
+		"\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 		exit(0);
 	}
 }
@@ -100,7 +101,7 @@ void	parse_arg(char **argv, t_mem *s)
 		else
 		{
 			ft_add_arg(s, argv, i, 0);
-			break;
+			break ;
 		}
 		i++;
 	}

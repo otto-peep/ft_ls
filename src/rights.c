@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rights.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/08/21 21:33:55 by pconin            #+#    #+#             */
+/*   Updated: 2016/08/21 21:35:11 by pconin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-int	get_link(t_fil *f, char *path)
+int		get_link(t_fil *f, char *path)
 {
-	int len;
-	char buf[BUFSIZE_LINK];
+	int		len;
+	char	buf[BUFSIZE_LINK];
 
 	if ((len = (readlink(path, buf, BUFSIZE_LINK))) < 0)
 	{
@@ -16,6 +28,12 @@ int	get_link(t_fil *f, char *path)
 		f->link = ft_strdup(buf);
 		return (1);
 	}
+}
+
+void	maj_min(t_fil *f)
+{
+	f->maj = 0;
+	f->min = 0;
 }
 
 void	get_type(t_fil *f, struct stat buf)
@@ -43,10 +61,7 @@ void	get_type(t_fil *f, struct stat buf)
 		printf("%f %f\n", f->maj, f->min);
 	}
 	else
-	{
-		f->maj = 0;
-		f->min = 0;
-	}
+		maj_min(f);
 }
 
 void	get_rights(t_fil *f, struct stat buf)

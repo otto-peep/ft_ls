@@ -14,7 +14,7 @@ FILE = main.c	\
 	  rights.c	\
 	  tools.c	\
 	  dir.c		\
-	  lstdel.c
+	  lst.c
 
 SRC = $(FILE:%c=$(PATH1)%c)
 

@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:22:37 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/15 14:43:22 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:27:43 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_date(t_fil *file, time_t second, long nano)
 		file->date_m = ft_strjoin(file->date_m, "  ");
 		file->date_m = ft_strjoin(file->date_m, tab[2]);
 		file->date_m = ft_strjoin(file->date_m, "  ");
-		file->date_m = ft_strjoin(file->date_m, ft_strsub(tab[3], 0, (ft_strlen(tab[3]) - 3)));
+		file->date_m = ft_strjoin(file->date_m,
+				ft_strsub(tab[3], 0, (ft_strlen(tab[3]) - 3)));
 	}
-//	free(tab);
 }

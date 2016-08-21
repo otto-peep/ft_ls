@@ -6,13 +6,13 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/16 12:25:52 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/18 17:10:10 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:28:02 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	my_opendir(const char *path, DIR **rep)
+int		my_opendir(const char *path, DIR **rep)
 {
 	if ((*rep = opendir(path)) == NULL)
 	{

@@ -6,11 +6,12 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/20 11:43:12 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:55:35 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
 void	print_l(t_fil *file)
 {
 	ft_putchar(file->typ);
@@ -34,6 +35,7 @@ void	print_l(t_fil *file)
 	ft_putstr(file->date_m);
 	ft_putstr(" ");
 }
+
 void	total_blocks(t_fil *file, t_mem *s)
 {
 	int total;
@@ -72,7 +74,7 @@ void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 {
 	t_fil *tmp;
 
-	if ((s->nb_file > 1 || s->R == 1) && bool == 0)
+	if ((s->nb_file > 1 || s->rec == 1) && bool == 0)
 		ft_print_path(path);
 	if (s->l == 1 && bool == 0)
 		total_blocks(file, s);
@@ -88,7 +90,7 @@ void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 			ft_putstr("\n");
 		}
 		if (bool == 1)
-			break;
+			break ;
 		tmp = file->next;
 		file = tmp;
 	}

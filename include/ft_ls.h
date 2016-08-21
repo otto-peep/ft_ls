@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 20:12:23 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:54:19 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 # define FT_LS_H
 # define STAT_HAVE_NSEC 1
 # define BUFSIZE_LINK 1024
-#define st_ctime st_ctim.tv_sec
+# define ST_CTIME ST_CTIM.TV_SEC
 
-#include <dirent.h>
-#include <unistd.h>
-#include "libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <pwd.h>
-#include <uuid/uuid.h>
-#include <grp.h>
+# include <dirent.h>
+# include <unistd.h>
+# include "libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
+# include <grp.h>
 
 typedef struct		s_fil
 {
@@ -54,14 +54,13 @@ typedef struct		s_mem
 {
 	int				one;
 	int				l;
-	int				R;
+	int				rec;
 	int				a;
 	int				r;
 	char			**files;
 	int				nb_file;
 	void			(*f_sort)(t_fil **head, t_fil *new);
 }					t_mem;
-
 
 //date.c
 void	get_date(t_fil *file, time_t second, long nano);
@@ -71,7 +70,7 @@ int		my_closedir(const char *path, DIR **rep);
 //flags.c
 void	flag_r(t_fil **begin_list);
 int		size_list(t_fil *begin_list);
-void	insert_list(t_fil **begin_list, t_fil *maillon, t_fil **newlist, int bool);
+void	insert_list(t_fil **begin, t_fil *maillon, t_fil **newlist, int bool);
 int		ft_timecmp(t_fil *cur, t_fil *new);
 void	tri_ascii(t_fil **head, t_fil *new);
 void	tri_date(t_fil **head, t_fil *new);
@@ -99,4 +98,3 @@ void	get_rights(t_fil *f, struct stat buf);
 void	lstdel(t_fil *list, t_mem *s);
 
 #endif
-

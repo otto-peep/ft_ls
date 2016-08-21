@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:22:33 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/20 11:43:26 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:32:12 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,20 @@ void	flag_r(t_fil **begin_list)
 	*begin_list = prev;
 }
 
-int		size_list(t_fil *begin_list)
-{
-	int count;
-
-	count = 0;
-	while (begin_list->next)
-	{
-		count++;
-		begin_list = begin_list->next;
-	}
-	return (count);
-}
-
-void	insert_list(t_fil **begin_list, t_fil *maillon, t_fil **newlist, int bool)
+void	insert_list(t_fil **begin, t_fil *maillon, t_fil **newlist, int bool)
 {
 	t_fil *tmp;
 
 	tmp = NULL;
 	if (bool == 1)
 	{
-		(*newlist)->next = *begin_list;
-		*begin_list = *newlist;
+		(*newlist)->next = *begin;
+		*begin = *newlist;
 		return ;
 	}
 	else
 	{
-		tmp = *begin_list;
+		tmp = *begin;
 		maillon->next = *newlist;
 		(*newlist)->next = tmp;
 	}
@@ -65,7 +52,7 @@ void	insert_list(t_fil **begin_list, t_fil *maillon, t_fil **newlist, int bool)
 int		ft_timecmp(t_fil *cur, t_fil *new)
 {
 	if (cur->time_s < new->time_s || (cur->time_s == new->time_s && (
-		cur->nanotime < new->nanotime || (cur->nanotime == new->nanotime && 
+		cur->nanotime < new->nanotime || (cur->nanotime == new->nanotime &&
 			ft_strcmp(cur->name, new->name) > 0))))
 		return (1);
 	else
@@ -88,7 +75,7 @@ void	tri_ascii(t_fil **head, t_fil *new)
 			if (ft_strcmp(maillon->name, new->name) > 0)
 			{
 				insert_list(&maillon, pre, &new, 0);
-				return;
+				return ;
 			}
 			pre = maillon;
 			maillon = maillon->next;
@@ -100,7 +87,6 @@ void	tri_ascii(t_fil **head, t_fil *new)
 	}
 }
 
-
 void	tri_date(t_fil **head, t_fil *new)
 {
 	t_fil	*cur;
@@ -111,14 +97,14 @@ void	tri_date(t_fil **head, t_fil *new)
 	if (ft_timecmp(cur, new) == 1)
 	{
 		insert_list(head, NULL, &new, 1);
-		return;
+		return ;
 	}
 	while (cur->next)
 	{
 		if (ft_timecmp(cur, new))
 		{
 			insert_list(&cur, pre, &new, 0);
-			return;
+			return ;
 		}
 		pre = cur;
 		cur = cur->next;
@@ -128,4 +114,3 @@ void	tri_date(t_fil **head, t_fil *new)
 	else
 		cur->next = new;
 }
-
