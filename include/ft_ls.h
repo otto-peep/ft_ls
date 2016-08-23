@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:54:19 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 17:36:08 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # define FT_LS_H
 # define STAT_HAVE_NSEC 1
 # define BUFSIZE_LINK 1024
-# define ST_CTIME ST_CTIM.TV_SEC
 
 # include <dirent.h>
 # include <unistd.h>
@@ -31,6 +30,7 @@
 
 typedef struct		s_fil
 {
+	size_t			inode;
 	char			*path;
 	char			typ;
 	long long		time_s;
@@ -52,6 +52,13 @@ typedef struct		s_fil
 
 typedef struct		s_mem
 {
+	char			u;
+	int				o;
+	int				n;
+	int				i;
+	int				f;
+	int				t;
+	int				s;
 	int				one;
 	int				l;
 	int				rec;
@@ -63,10 +70,11 @@ typedef struct		s_mem
 }					t_mem;
 
 //date.c
-void	get_date(t_fil *file, time_t second, long nano);
+void	get_date(t_fil *file, struct stat buf, t_mem *s);
 //dir .c
 int		my_opendir(const char *path, DIR **rep);
 int		my_closedir(const char *path, DIR **rep);
+void	wrong_flag(char c);
 //flags.c
 void	flag_r(t_fil **begin_list);
 int		size_list(t_fil *begin_list);
@@ -85,7 +93,7 @@ void	ls_rec(t_mem *s, char *path);
 void	parse_for_rec(t_mem *s, t_fil *file);
 void	ft_add_file(t_mem *s, struct dirent *fichier, char *name, t_fil **list);
 //print.c
-void	print_l(t_fil *file);
+void	print_l(t_fil *file, t_mem *s);
 void	total_blocks(t_fil *file, t_mem *s);
 void	ft_print_path(char *path);
 void	ft_print_link(t_fil *file);
@@ -94,7 +102,12 @@ void	print_dir(t_fil *file, t_mem *s, char *path, int bool);
 int		get_link(t_fil *f, char *path);
 void	get_type(t_fil *f, struct stat buf);
 void	get_rights(t_fil *f, struct stat buf);
+void	get_usgr(t_fil *file, t_mem *s, struct stat buf);
 //lstdel.c
-void	lstdel(t_fil *list, t_mem *s);
+void	lstdel(t_fil *list);
+//bonus.c
+void	tri_size(t_fil **head, t_fil *new);
+void	no_sort(t_fil **head, t_fil *new);
+void	ft_priority(t_mem *s);
 
 #endif
