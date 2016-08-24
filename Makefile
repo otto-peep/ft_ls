@@ -2,7 +2,7 @@ NAME = ft_ls
 
 PATH1 = ./src/
 
-HEAD = -I ./include
+HEAD = -I./include
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -26,11 +26,15 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 all: $(NAME)
 
 $(NAME):
-	gcc -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
+	make -C libft/
+	gcc $(FLAGS) -o $(NAME) $(SRC) $(HEAD) -I./libft/include ./libft/libft.a
 
 clean :
+	rm -f $(OBJ)
+	make -C libft/ clean
 
 fclean :
-	rm -f $(NAME)
+	make -C libft/ fclean
+	rm -f $(NAME) $(OBJ)
 
 re : fclean all

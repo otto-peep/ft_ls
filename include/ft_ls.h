@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/24 18:10:02 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 18:36:42 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include <dirent.h>
 # include <unistd.h>
-# include "libft.h"
+# include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <stdio.h>
@@ -104,5 +104,5 @@ void				lstdel(t_fil *list);
 void				tri_size(t_fil **head, t_fil *new);
 void				no_sort(t_fil **head, t_fil *new);
 void				ft_priority(t_mem *s);
-int					ft_extract(t_mem *s, t_fil **list, char *str);
+int					ft_extract(t_fil **list, char *str);
 #endif

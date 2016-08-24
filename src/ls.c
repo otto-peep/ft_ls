@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/24 18:06:11 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 18:27:32 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ls_rec2(t_mem *s, t_fil **list, char *path)
 {
 	if (s->only == 1)
 	{
-		if (ft_extract(s, list, s->oldpath) == 0)
+		if (ft_extract(list, s->oldpath) == 0)
 		{
 			ls_rec(s, s->oldpath);
 			return ;
