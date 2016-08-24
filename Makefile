@@ -4,7 +4,7 @@ PATH1 = ./src/
 
 HEAD = -I ./include
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror --std=c99
 
 FILE = main.c	\
 	  date.c	\

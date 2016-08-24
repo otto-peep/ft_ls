@@ -42,7 +42,7 @@ void	ft_add_file(t_mem *s, struct dirent *f, char *name, t_fil **list)
 
 	file = NULL;
 	file = (t_fil*)malloc(sizeof(t_fil));
-	file->path = ft_strjoin(name, "/");
+//	file->path = ft_strjoin(name, "/");
 	file->path = ft_strjoin(file->path, f->d_name);
 	if ((lstat(file->path, &buf)) < 0)
 	{
@@ -90,11 +90,31 @@ void	ls_rec(t_mem *s, char *path)
 		{
 			if (s->r == 1)
 				flag_r(&list);
-			print_dir(list, s, path, 0);
-			if (s->rec == 1)
+			if (s->only == 1)
+				find_one(s, &list);
+			if (s->only != 2)
+				print_dir(list, s, path);
+			if (s->rec == 1 && s->only == 0)
 				parse_for_rec(s, list);
 		}
 	}
+	else if (s->only == 0)
+	{
+		ft_putstr("hello");
+		s->only = 1;
+		s->oldpath = ft_strdup(path);
+		ls_rec(s, "./"); // faire un strdup jusqu'au / precedent
+		return ;
+	}
+	if (s->only == 2)
+	{
+	//	ft_putstrs(s->oldpath);
+		ft_putstr("error");
+		s->only = 0;
+		return ;
+	}
+
+
 }
 
 int		main(int argc, char **argv)

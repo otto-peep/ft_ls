@@ -15,10 +15,7 @@
 int		my_opendir(const char *path, DIR **rep)
 {
 	if ((*rep = opendir(path)) == NULL)
-	{
-		ft_error((char *)path);
 		return (0);
-	}
 	else
 		return (1);
 }

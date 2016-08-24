@@ -73,13 +73,13 @@ void	ft_print_link(t_fil *file)
 	ft_putstr(file->link);
 }
 
-void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
+void	print_dir(t_fil *file, t_mem *s, char *path)
 {
 	t_fil *tmp;
 
-	if ((s->nb_file > 1 || s->rec == 1) && bool == 0)
+	if (s->nb_file > 1 || s->rec == 1)
 		ft_print_path(path);
-	if (s->l == 1 && bool == 0)
+	if (s->l == 1)
 		total_blocks(file, s);
 	while (file != NULL)
 	{
@@ -94,8 +94,6 @@ void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 				ft_print_link(file);
 			ft_putstr("\n");
 		}
-		if (bool == 1)
-			break ;
 		tmp = file->next;
 		file = tmp;
 	}

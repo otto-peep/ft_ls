@@ -52,6 +52,8 @@ typedef struct		s_fil
 
 typedef struct		s_mem
 {
+	char			*oldpath;
+	int				only;
 	char			u;
 	int				o;
 	int				n;
@@ -97,7 +99,7 @@ void	print_l(t_fil *file, t_mem *s);
 void	total_blocks(t_fil *file, t_mem *s);
 void	ft_print_path(char *path);
 void	ft_print_link(t_fil *file);
-void	print_dir(t_fil *file, t_mem *s, char *path, int bool);
+void	print_dir(t_fil *file, t_mem *s, char *path);
 //rights.c
 int		get_link(t_fil *f, char *path);
 void	get_type(t_fil *f, struct stat buf);
@@ -109,5 +111,6 @@ void	lstdel(t_fil *list);
 void	tri_size(t_fil **head, t_fil *new);
 void	no_sort(t_fil **head, t_fil *new);
 void	ft_priority(t_mem *s);
+void	find_one(t_mem *s, t_fil **head);
 
 #endif

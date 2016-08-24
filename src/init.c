@@ -20,6 +20,7 @@ void	ft_error(char *str)
 
 void	init_arg(t_mem *s)
 {
+	s->only = 0;
 	s->u = 'x';
 	s->n = 0;
 	s->i = 0;
