@@ -74,20 +74,3 @@ void	ft_priority(t_mem *s)
 	if (s->n == 1 || s->o == 1)
 		s->l = 1;
 }
-
-void	find_one(t_mem *s, t_fil **head)
-{
-	t_fil *maillon;
-
-	maillon = *head;
-	while (maillon->next && ft_strcmp(maillon->name, s->oldpath))
-		maillon = maillon->next;
-	if (ft_strcmp(maillon->name, s->oldpath) == 0)
-	{
-		maillon->next = NULL;
-		*head = maillon;
-		s->only = 0;
-	}
-	else
-		s->only = 2;
-}

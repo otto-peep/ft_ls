@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/16 12:25:52 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:28:02 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 17:28:42 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int		my_opendir(const char *path, DIR **rep)
 {
 	if ((*rep = opendir(path)) == NULL)
+	{
+		ft_error((char *)path);
 		return (0);
+	}
 	else
 		return (1);
 }
@@ -29,4 +32,13 @@ int		my_closedir(const char *path, DIR **rep)
 	}
 	*rep = NULL;
 	return (1);
+}
+
+void	wrong_flag(char c)
+{
+	ft_putstr("ls: illegal option -- ");
+	ft_putchar(c);
+	ft_putstr(
+			"\nusage: ls [-lRartSfinoUu] [file ...]\n");
+	exit(0);
 }

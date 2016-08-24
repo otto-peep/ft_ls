@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/21 20:00:19 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:51:53 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 17:31:26 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		size_list(t_fil *begin_list)
 	return (count);
 }
 
-void	lstdel(t_fil *list, t_mem *s)
+void	lstdel(t_fil *list)
 {
 	t_fil *mem;
 

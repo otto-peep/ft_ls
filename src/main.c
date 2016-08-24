@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:54:50 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 17:32:21 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ void	ft_add_file2(t_mem *s, t_fil *file, struct stat buf, t_fil **list)
 			return ;
 		}
 	}
+	get_usgr(file, s, buf);
 	file->bloc = buf.st_blocks;
-	file->us_name = ft_strdup((getpwuid(buf.st_uid))->pw_name);
-	if (getgrgid(buf.st_gid) == NULL)
-		file->gr_name = ft_itoa(buf.st_gid);
-	else
-		file->gr_name = ft_strdup((getgrgid(buf.st_gid)->gr_name));
 	file->hide = 0;
 	if (file->name[0] == '.')
 		file->hide = 1;
@@ -46,7 +42,7 @@ void	ft_add_file(t_mem *s, struct dirent *f, char *name, t_fil **list)
 
 	file = NULL;
 	file = (t_fil*)malloc(sizeof(t_fil));
-//	file->path = ft_strjoin(name, "/");
+	file->path = ft_strjoin(name, "/");
 	file->path = ft_strjoin(file->path, f->d_name);
 	if ((lstat(file->path, &buf)) < 0)
 	{
@@ -58,9 +54,10 @@ void	ft_add_file(t_mem *s, struct dirent *f, char *name, t_fil **list)
 	}
 	file->size = buf.st_size;
 	file->name = ft_strdup(f->d_name);
-	get_date(file, buf.st_mtimespec.tv_sec, buf.st_mtimespec.tv_nsec);
+	get_date(file, buf, s);
 	get_rights(file, buf);
 	get_type(file, buf);
+	file->inode = buf.st_ino;
 	ft_add_file2(s, file, buf, list);
 }
 
@@ -93,31 +90,11 @@ void	ls_rec(t_mem *s, char *path)
 		{
 			if (s->r == 1)
 				flag_r(&list);
-			if (s->only == 1)
-				find_one(s, &list);
-			if (s->only != 2)
-				print_dir(list, s, path);
-			if (s->rec == 1 && s->only == 0)
+			print_dir(list, s, path, 0);
+			if (s->rec == 1)
 				parse_for_rec(s, list);
 		}
 	}
-	else if (s->only == 0)
-	{
-		ft_putstr("hello");
-		s->only = 1;
-		s->oldpath = ft_strdup(path);
-		ls_rec(s, "./"); // faire un strdup jusqu'au / precedent
-		return ;
-	}
-	if (s->only == 2)
-	{
-	//	ft_putstrs(s->oldpath);
-		ft_putstr("error");
-		s->only = 0;
-		return ;
-	}
-
-
 }
 
 int		main(int argc, char **argv)
@@ -132,5 +109,6 @@ int		main(int argc, char **argv)
 		ls_rec(&s, s.files[i]);
 		i++;
 	}
+	argc = 0;
 	return (0);
 }

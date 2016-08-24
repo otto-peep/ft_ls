@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/21 21:33:55 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:35:11 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 16:42:06 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,16 @@ void	get_rights(t_fil *f, struct stat buf)
 	f->rgh[7] = (buf.st_mode & S_IWOTH) ? 'w' : '-';
 	f->rgh[8] = (buf.st_mode & S_IXOTH) ? 'x' : '-';
 	f->rgh[9] = '\0';
+}
+
+void	get_usgr(t_fil *file, t_mem *s, struct stat buf)
+{
+	if (s->n == 1)
+		file->us_name = ft_itoa(buf.st_uid);
+	else
+		file->us_name = ft_strdup((getpwuid(buf.st_uid))->pw_name);
+	if (getgrgid(buf.st_gid) == NULL || s->n == 1)
+		file->gr_name = ft_itoa(buf.st_gid);
+	else
+		file->gr_name = ft_strdup((getgrgid(buf.st_gid)->gr_name));
 }

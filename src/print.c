@@ -6,14 +6,16 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:55:35 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 16:56:34 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_l(t_fil *file)
+void	print_l(t_fil *file, t_mem *s)
 {
+	if (s->i == 1)
+		ft_putnbrs(file->inode);
 	ft_putchar(file->typ);
 	ft_putstr(file->rgh);
 	ft_putstr("  ");
@@ -21,7 +23,8 @@ void	print_l(t_fil *file)
 	ft_putstr(" ");
 	ft_putstr(file->us_name);
 	ft_putstr("  ");
-	ft_putstr(file->gr_name);
+	if (s->o == 0)
+		ft_putstr(file->gr_name);
 	ft_putstr("\t");
 	if (file->typ != 'c' && file->typ != 'b')
 		ft_putnbr(file->size);
@@ -70,25 +73,29 @@ void	ft_print_link(t_fil *file)
 	ft_putstr(file->link);
 }
 
-void	print_dir(t_fil *file, t_mem *s, char *path)
+void	print_dir(t_fil *file, t_mem *s, char *path, int bool)
 {
 	t_fil *tmp;
 
-	if (s->nb_file > 1 || s->rec == 1)
+	if ((s->nb_file > 1 || s->rec == 1) && bool == 0)
 		ft_print_path(path);
-	if (s->l == 1)
+	if (s->l == 1 && bool == 0)
 		total_blocks(file, s);
 	while (file != NULL)
 	{
 		if (s->a == 1 || file->hide == 0)
 		{
 			if (s->l == 1)
-				print_l(file);
+				print_l(file, s);
+			else if (s->i == 1)
+				ft_putnbrs(file->inode);
 			ft_putstr(file->name);
 			if (file->typ == 'l' && s->l == 1)
 				ft_print_link(file);
 			ft_putstr("\n");
 		}
+		if (bool == 1)
+			break ;
 		tmp = file->next;
 		file = tmp;
 	}

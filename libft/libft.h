@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 14:32:41 by pconin            #+#    #+#             */
-/*   Updated: 2015/12/13 18:16:09 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 16:13:35 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-<<<<<<< HEAD
-int					ft_strlastchr(const char *s, int c);
 void				ft_putnbrs(int nbr);
 void				ft_putstrs(char *str);
-=======
->>>>>>> parent of ca4126a... all new flags
 int					get_next_line(int fd, char **line);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);

@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:19:22 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/21 21:55:11 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/23 17:35:20 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	ft_error(char *str)
 
 void	init_arg(t_mem *s)
 {
-<<<<<<< HEAD
-	s->only = 0;
 	s->u = 'x';
 	s->n = 0;
 	s->i = 0;
-=======
->>>>>>> parent of ca4126a... all new flags
 	s->l = 0;
 	s->rec = 0;
 	s->a = 0;
 	s->r = 0;
+	s->f = 0;
+	s->t = 0;
+	s->s = 0;
+	s->o = 0;
 	s->f_sort = &(tri_ascii);
 	s->files = NULL;
 	s->nb_file = 1;
@@ -47,15 +47,21 @@ void	check_flag(t_mem *s, char c)
 	else if (c == 'r')
 		s->r = 1;
 	else if (c == 't')
-		s->f_sort = &(tri_date);
+		s->t = 1;
+	else if (c == 'S')
+		s->s = 1;
+	else if (c == 'f')
+		s->f = 1;
+	else if (c == 'i')
+		s->i = 1;
+	else if (c == 'n')
+		s->n = 1;
+	else if (c == 'o')
+		s->o = 1;
+	else if (c == 'u' || c == 'U')
+		s->u = c;
 	else
-	{
-		ft_putstr("ls: illegal option -- ");
-		ft_putchar(c);
-		ft_putstr(
-		"\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
-		exit(0);
-	}
+		wrong_flag(c);
 }
 
 void	ft_add_arg(t_mem *s, char **argv, int i, int bool)
@@ -92,9 +98,9 @@ void	parse_arg(char **argv, t_mem *s)
 	int i;
 	int a;
 
-	i = 1;
+	i = 0;
 	init_arg(s);
-	while (argv[i])
+	while (argv[++i])
 	{
 		if (argv[i][0] == '-' && argv[i][1] != '\0')
 		{
@@ -110,8 +116,8 @@ void	parse_arg(char **argv, t_mem *s)
 			ft_add_arg(s, argv, i, 0);
 			break ;
 		}
-		i++;
 	}
+	ft_priority(s);
 	if (s->files == NULL)
 		ft_add_arg(s, argv, i, 1);
 }

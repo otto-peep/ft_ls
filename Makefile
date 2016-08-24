@@ -4,7 +4,7 @@ PATH1 = ./src/
 
 HEAD = -I ./include
 
-FLAGS = -Wall -Wextra -Werror --std=c99
+FLAGS = -Wall -Wextra -Werror
 
 FILE = main.c	\
 	  date.c	\
@@ -12,9 +12,9 @@ FILE = main.c	\
 	  init.c	\
 	  print.c	\
 	  rights.c	\
-	  tools.c	\
 	  dir.c		\
-	  lst.c
+	  lst.c		\
+	  bonus.c
 
 SRC = $(FILE:%c=$(PATH1)%c)
 
@@ -25,7 +25,7 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 all: $(NAME)
 
 $(NAME):
-	gcc -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
+	gcc $(FLAGS) -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
 
 clean :
 
