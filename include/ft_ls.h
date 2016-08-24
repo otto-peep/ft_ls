@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/23 17:36:08 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 17:21:28 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_fil
 
 typedef struct		s_mem
 {
+	int				only;
 	char			u;
 	int				o;
 	int				n;
@@ -72,7 +73,7 @@ typedef struct		s_mem
 //date.c
 void	get_date(t_fil *file, struct stat buf, t_mem *s);
 //dir .c
-int		my_opendir(const char *path, DIR **rep);
+int		my_opendir(char *path, DIR **rep, t_mem *s);
 int		my_closedir(const char *path, DIR **rep);
 void	wrong_flag(char c);
 //flags.c
@@ -109,5 +110,5 @@ void	lstdel(t_fil *list);
 void	tri_size(t_fil **head, t_fil *new);
 void	no_sort(t_fil **head, t_fil *new);
 void	ft_priority(t_mem *s);
-
+int	ft_extract(t_mem *s, t_fil **list, char *str);
 #endif

@@ -25,7 +25,7 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 all: $(NAME)
 
 $(NAME):
-	gcc $(FLAGS) -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
+	gcc -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
 
 clean :
 

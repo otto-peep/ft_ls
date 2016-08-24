@@ -6,17 +6,29 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/16 12:25:52 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/23 17:28:42 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 17:25:46 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		my_opendir(const char *path, DIR **rep)
+int		my_opendir(char *path, DIR **rep, t_mem *s)
 {
 	if ((*rep = opendir(path)) == NULL)
 	{
-		ft_error((char *)path);
+		if (s->only == 1)
+		{
+			s->only = 0;
+			ft_error((char *)path);
+		}
+		else
+		{
+			s->only = 1;
+			if (ft_lastchr((char *)path, '/') <= 0)
+				ls_rec(s, "./");
+			else
+				ls_rec(s, ft_strsub(path, 0, ft_lastchr(path, '/')));
+		}
 		return (0);
 	}
 	else

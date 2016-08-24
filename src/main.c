@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/23 17:32:21 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 17:25:44 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,34 @@ void	ls_rec(t_mem *s, char *path)
 
 	rep = NULL;
 	list = NULL;
-	if (my_opendir(path, &rep) != 0)
+	if (my_opendir(path, &rep, s) != 0)
 	{
 		while ((fichier = readdir(rep)) != NULL)
 			ft_add_file(s, fichier, path, &list);
 		if (my_closedir(path, &rep) != 0)
 		{
+			if (s->only == 1)
+			{
+				if (ft_extract(s, &list, "yo") == 0)
+				{
+					ls_rec(s, "xoxoxoo");
+					return ;
+				}
+			//	else
+					//afficher le maillon et quitter
+			}
 			if (s->r == 1)
 				flag_r(&list);
 			print_dir(list, s, path, 0);
+			if (s->only == 1)
+			{
+				s->only = 0;
+				return ;
+			}
 			if (s->rec == 1)
 				parse_for_rec(s, list);
 		}
+		// condition d'arret
 	}
 }
 

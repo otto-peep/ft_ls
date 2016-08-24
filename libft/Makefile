@@ -1,6 +1,7 @@
 NAME = libft.a
 
-SRC = ./ft_putnbrs.c	\
+SRC = ./ft_lastchr.c	\
+	./ft_putnbrs.c	\
 	./ft_putstrs.c	\
 	./get_next_line.c \
 	./ft_putchar.c	\
@@ -68,7 +69,8 @@ SRC = ./ft_putnbrs.c	\
 	./ft_lstaddback.c	\
 	./ft_printbits.c
 
-OB = ./ft_putnbrs.o	\
+OB =  ./ft_lastchr.o	\
+	./ft_putnbrs.o	\
 	./ft_putstrs.o	\
 	./get_next_line.o	\
 	./ft_putchar.o	\
