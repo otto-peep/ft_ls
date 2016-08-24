@@ -12,9 +12,9 @@ FILE = main.c	\
 	  init.c	\
 	  print.c	\
 	  rights.c	\
+	  tools.c	\
 	  dir.c		\
-	  lst.c		\
-	  bonus.c
+	  lst.c
 
 SRC = $(FILE:%c=$(PATH1)%c)
 
@@ -25,7 +25,7 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 all: $(NAME)
 
 $(NAME):
-	gcc $(FLAGS) -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
+	gcc -lm -L libft/ -lft -o $(NAME) $(SRC) $(HEAD)   -I libft
 
 clean :
 

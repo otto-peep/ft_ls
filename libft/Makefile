@@ -1,9 +1,13 @@
 NAME = libft.a
 
+<<<<<<< HEAD
 SRC = ./ft_strlastchr.c \
 	./ft_putnbrs.c	\
 	./ft_putstrs.c	\
 	./get_next_line.c \
+=======
+SRC =  ./get_next_line.c \
+>>>>>>> parent of ca4126a... all new flags
 	./ft_putchar.c	\
 	./ft_putstr.c	\
 	./ft_strdup.c	\
@@ -69,10 +73,14 @@ SRC = ./ft_strlastchr.c \
 	./ft_lstaddback.c	\
 	./ft_printbits.c
 
+<<<<<<< HEAD
 OB = ./ft_strlastchr.o \
 	./ft_putnbrs.o	\
 	./ft_putstrs.o	\
 	./get_next_line.o	\
+=======
+OB = 	./get_next_line.o	\
+>>>>>>> parent of ca4126a... all new flags
 	./ft_putchar.o	\
 	./ft_putstr.o	\
 	./ft_strdup.o	\

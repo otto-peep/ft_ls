@@ -6,16 +6,14 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:17:13 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/23 16:56:34 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/21 21:55:35 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_l(t_fil *file, t_mem *s)
+void	print_l(t_fil *file)
 {
-	if (s->i == 1)
-		ft_putnbrs(file->inode);
 	ft_putchar(file->typ);
 	ft_putstr(file->rgh);
 	ft_putstr("  ");
@@ -23,8 +21,7 @@ void	print_l(t_fil *file, t_mem *s)
 	ft_putstr(" ");
 	ft_putstr(file->us_name);
 	ft_putstr("  ");
-	if (s->o == 0)
-		ft_putstr(file->gr_name);
+	ft_putstr(file->gr_name);
 	ft_putstr("\t");
 	if (file->typ != 'c' && file->typ != 'b')
 		ft_putnbr(file->size);
@@ -86,9 +83,7 @@ void	print_dir(t_fil *file, t_mem *s, char *path)
 		if (s->a == 1 || file->hide == 0)
 		{
 			if (s->l == 1)
-				print_l(file, s);
-			else if (s->i == 1)
-				ft_putnbrs(file->inode);
+				print_l(file);
 			ft_putstr(file->name);
 			if (file->typ == 'l' && s->l == 1)
 				ft_print_link(file);
