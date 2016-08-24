@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:33:06 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/24 17:25:44 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 17:53:57 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,15 @@ void	ls_rec(t_mem *s, char *path)
 		{
 			if (s->only == 1)
 			{
-				if (ft_extract(s, &list, "yo") == 0)
+				if (ft_extract(s, &list, s->oldpath) == 0)
 				{
-					ls_rec(s, "xoxoxoo");
+					ls_rec(s, s->oldpath);
 					return ;
 				}
-			//	else
-					//afficher le maillon et quitter
 			}
 			if (s->r == 1)
 				flag_r(&list);
-			print_dir(list, s, path, 0);
+			print_dir(list, s, path, s->only);
 			if (s->only == 1)
 			{
 				s->only = 0;
@@ -109,7 +107,6 @@ void	ls_rec(t_mem *s, char *path)
 			if (s->rec == 1)
 				parse_for_rec(s, list);
 		}
-		// condition d'arret
 	}
 }
 

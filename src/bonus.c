@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/21 22:46:30 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/24 17:25:47 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 17:57:55 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_priority(t_mem *s)
 		s->l = 1;
 }
 
-int			ft_extract(t_mem *s, t_fil **list, char *str)
+int		ft_extract(t_mem *s, t_fil **list, char *str)
 {
 	t_fil	*mxt;
 
@@ -85,9 +85,7 @@ int			ft_extract(t_mem *s, t_fil **list, char *str)
 	if (ft_strcmp(mxt->name, str) == 0)
 	{
 		mxt->next = NULL;
-		list = &mxt;
-		ft_putstr("OCCURENCE FOUND");
-		exit(0);
+		*list = mxt;
 		return (1);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 11:06:50 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/24 17:21:28 by pconin           ###   ########.fr       */
+/*   Updated: 2016/08/24 17:26:48 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_fil
 
 typedef struct		s_mem
 {
+	char			*oldpath;
 	int				only;
 	char			u;
 	int				o;
