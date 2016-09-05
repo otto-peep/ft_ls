@@ -6,7 +6,7 @@
 /*   By: pconin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/21 21:33:55 by pconin            #+#    #+#             */
-/*   Updated: 2016/08/23 16:42:06 by pconin           ###   ########.fr       */
+/*   Updated: 2016/09/05 15:11:18 by pconin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	get_type(t_fil *f, struct stat buf)
 	{
 		f->maj = major(buf.st_rdev);
 		f->min = minor(buf.st_rdev);
-		printf("%f %f\n", f->maj, f->min);
 	}
 	else
 		maj_min(f);
