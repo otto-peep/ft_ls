@@ -143,14 +143,16 @@ HDER = ./libft.h
 all: $(NAME)
 
 $(NAME):
-	gcc -Wall -Wextra -Werror -c $(SRC)
-	ar rc $(NAME) $(OB)
-	ranlib $(NAME)
+	@echo Compiling libft
+	@gcc -Wall -Wextra -Werror -c $(SRC)
+	@ar rc $(NAME) $(OB)
+	@ranlib $(NAME)
 
 clean:
-	rm -f $(OB)
+	@echo "Cleaning libft"
+	@rm -f $(OB)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
